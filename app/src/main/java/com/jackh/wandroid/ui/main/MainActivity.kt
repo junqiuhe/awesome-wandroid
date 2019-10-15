@@ -1,7 +1,8 @@
-package com.jackh.wandroid
+package com.jackh.wandroid.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.jackh.wandroid.R
 
 class MainActivity : AppCompatActivity() {
 
