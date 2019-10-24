@@ -1,13 +1,10 @@
 package com.jackh.wandroid.ui.main
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import com.jackh.wandroid.R
+import com.jackh.wandroid.ui.BaseActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-    }
+    override fun getLayoutId(): Int = R.layout.activity_main
+
 }

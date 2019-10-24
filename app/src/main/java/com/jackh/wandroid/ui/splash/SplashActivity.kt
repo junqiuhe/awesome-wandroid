@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.jackh.wandroid.R
+import com.jackh.wandroid.ui.BaseActivity
 import com.jackh.wandroid.ui.main.MainActivity
 
 /**
@@ -12,11 +13,12 @@ import com.jackh.wandroid.ui.main.MainActivity
  * Description:
  */
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : BaseActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
+    override fun getLayoutId(): Int = R.layout.activity_splash
+
+    override fun initData(savedInstanceState: Bundle?) {
+        super.initData(savedInstanceState)
 
         launchMainActivity()
     }
