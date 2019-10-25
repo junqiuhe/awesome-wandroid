@@ -1,6 +1,7 @@
 package com.jackh.wandroid.ui.main
 
 import com.jackh.wandroid.R
+import com.jackh.wandroid.databinding.FragmentWxPublishNumBinding
 
 /**
  * Project Name：awesome-wandroid
@@ -8,7 +9,7 @@ import com.jackh.wandroid.R
  * Description:
  */
 
-class WXPublishNumberFragment : BaseHomeFragment(){
+class WXPublishNumberFragment : BaseHomeFragment<FragmentWxPublishNumBinding>(){
 
     override fun getNavIconResId(): Int = R.drawable.wx_publish_num_icon
 

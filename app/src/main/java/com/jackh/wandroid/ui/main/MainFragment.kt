@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.jackh.wandroid.R
+import com.jackh.wandroid.databinding.FragmentMainBinding
 import com.jackh.wandroid.ui.BaseFragment
 import com.jackh.wandroid.ui.account.MineFragment
 import com.jackh.wandroid.widget.BottomNavItem
@@ -16,7 +17,7 @@ import java.lang.IllegalArgumentException
  * Description:
  */
 
-class MainFragment : BaseFragment() {
+class MainFragment : BaseFragment<FragmentMainBinding>() {
 
     companion object {
 
@@ -40,7 +41,7 @@ class MainFragment : BaseFragment() {
 
     override fun initData(savedInstanceState: Bundle?) {
         for (position: Int in 0..3) {
-            val fragment: BaseHomeFragment = getFragmentByPos(position)
+            val fragment: BaseHomeFragment<*> = getFragmentByPos(position)
             mFragments.add(fragment)
             mNavItems.add(BottomNavItem(fragment.getNavIconResId(), fragment.getNavTitleResId()))
         }
@@ -79,9 +80,9 @@ class MainFragment : BaseFragment() {
         ts.commit()
     }
 
-    private fun getFragmentByPos(position: Int): BaseHomeFragment {
-        var fragment: BaseHomeFragment? =
-            childFragmentManager.findFragmentByTag(FRAGMENT_TAG + position) as? BaseHomeFragment
+    private fun getFragmentByPos(position: Int): BaseHomeFragment<*> {
+        var fragment: BaseHomeFragment<*>? =
+            childFragmentManager.findFragmentByTag(FRAGMENT_TAG + position) as? BaseHomeFragment<*>
         return fragment ?: when (position) {
             0 -> {
                 HomeFragment()

@@ -39,12 +39,12 @@ class RetrofitClient private constructor() {
         private var mInstance: RetrofitClient? = null
 
         fun getInstance(): RetrofitClient {
-            synchronized(RetrofitClient::class.java){
+            return synchronized(RetrofitClient::class.java) {
                 if (mInstance == null) {
                     mInstance = RetrofitClient()
                 }
+                mInstance!!
             }
-            return mInstance!!
         }
     }
 }

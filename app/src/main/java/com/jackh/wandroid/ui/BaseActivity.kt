@@ -2,6 +2,8 @@ package com.jackh.wandroid.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 
 /**
  * Project Name：awesome-wandroid
@@ -9,19 +11,20 @@ import androidx.appcompat.app.AppCompatActivity
  * Description:
  */
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity<T: ViewDataBinding> : AppCompatActivity() {
+
+    protected lateinit var viewDataBinding: T
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(getLayoutId())
+
+        viewDataBinding = DataBindingUtil.setContentView(this, getLayoutId())
 
         initData(savedInstanceState)
-
     }
 
     protected abstract fun getLayoutId(): Int
 
     protected open fun initData(savedInstanceState: Bundle?){
-
     }
 }

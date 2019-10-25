@@ -1,5 +1,6 @@
 package com.jackh.wandroid.ui.main
 
+import androidx.databinding.ViewDataBinding
 import com.jackh.wandroid.ui.BaseFragment
 
 /**
@@ -8,7 +9,7 @@ import com.jackh.wandroid.ui.BaseFragment
  * Description:
  */
 
-abstract class BaseHomeFragment : BaseFragment(){
+abstract class BaseHomeFragment<T : ViewDataBinding> : BaseFragment<T>() {
 
     abstract fun getNavIconResId(): Int
 

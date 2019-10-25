@@ -19,6 +19,10 @@
         </activity>
 
         <activity android:name=".ui.main.MainActivity"
+            android:theme="@style/NoActionBar"
+            android:launchMode="singleTask"/>
+
+        <activity android:name=".ui.account.AccountEntranceActivity"
             android:theme="@style/NoActionBar"/>
 
     </application>

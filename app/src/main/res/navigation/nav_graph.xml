@@ -9,6 +9,15 @@
         android:id="@+id/mainFragment"
         android:name="com.jackh.wandroid.ui.main.MainFragment"
         android:label="MainFragment"
-        tools:layout="@layout/fragment_main"/>
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_mainFragment_to_accountEntranceActivity"
+            app:destination="@id/accountEntranceActivity" />
+    </fragment>
+
+    <activity
+        android:id="@+id/accountEntranceActivity"
+        android:name="com.jackh.wandroid.ui.account.AccountEntranceActivity"
+        android:label="AccountEntranceActivity" />
 
 </navigation>

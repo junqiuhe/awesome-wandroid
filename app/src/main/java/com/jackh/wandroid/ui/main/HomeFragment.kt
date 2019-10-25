@@ -1,6 +1,7 @@
 package com.jackh.wandroid.ui.main
 
 import com.jackh.wandroid.R
+import com.jackh.wandroid.databinding.FragmentHomeBinding
 
 /**
  * Project Name：awesome-wandroid
@@ -8,7 +9,7 @@ import com.jackh.wandroid.R
  * Description:
  */
 
-class HomeFragment : BaseHomeFragment(){
+class HomeFragment : BaseHomeFragment<FragmentHomeBinding>(){
 
     override fun getNavIconResId(): Int = R.drawable.home_icon
 
