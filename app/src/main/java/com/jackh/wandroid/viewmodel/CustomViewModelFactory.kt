@@ -22,7 +22,7 @@ class CustomViewModelFactory(
                 .newInstance(UserRepository.getInstance(context))
 
         }else if(RegisterViewModel::class.java.isAssignableFrom(clazz)){
-            return clazz.getConstructor(RegisterViewModel::class.java)
+            return clazz.getConstructor(UserRepository::class.java)
                 .newInstance(UserRepository.getInstance(context))
         }
         throw IllegalArgumentException("CustomViewModelFactory create method illegal argument")

@@ -1,10 +1,12 @@
 package com.jackh.wandroid.ui.account
 
-import androidx.lifecycle.ViewModelProviders
+import android.os.Bundle
+import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import com.jackh.wandroid.R
 import com.jackh.wandroid.databinding.ActivityAccountEntranceBinding
 import com.jackh.wandroid.ui.BaseActivity
-import com.jackh.wandroid.viewmodel.CustomViewModelFactory
+import com.jackh.wandroid.utils.getViewModel
 import com.jackh.wandroid.viewmodel.account.LoginViewModel
 import com.jackh.wandroid.viewmodel.account.RegisterViewModel
 
@@ -13,19 +15,28 @@ import com.jackh.wandroid.viewmodel.account.RegisterViewModel
  * Created by hejunqiu on 2019/10/24 14:34
  * Description:
  */
-
 class AccountEntranceActivity : BaseActivity<ActivityAccountEntranceBinding>() {
 
     private val loginViewModel: LoginViewModel by lazy {
-        ViewModelProviders.of(this, CustomViewModelFactory.getCustomViewModelFactory(this))
-            .get(LoginViewModel::class.java)
+        getViewModel<LoginViewModel>()
     }
 
     private val registerViewModel: RegisterViewModel by lazy {
-        ViewModelProviders.of(this, CustomViewModelFactory.getCustomViewModelFactory(this))
-            .get(RegisterViewModel::class.java)
+        getViewModel<RegisterViewModel>()
     }
 
     override fun getLayoutId(): Int = R.layout.activity_account_entrance
 
+    override fun initData(savedInstanceState: Bundle?) {
+        loginViewModel.userInfo.observe(this, Observer { userInfo ->
+            onBackPressed()
+        })
+
+        registerViewModel.userInfo.observe(this, Observer { userInfo ->
+            onBackPressed()
+        })
+    }
+
+    override fun onSupportNavigateUp(): Boolean =
+        findNavController(R.id.nav_account_host_fragment).navigateUp()
 }

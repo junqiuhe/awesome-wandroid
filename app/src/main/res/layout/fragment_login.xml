@@ -19,14 +19,12 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/user_name_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="请输入用户名"
             android:text="@={viewModel.userName}" />
 
         <EditText
-            android:id="@+id/password_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -34,13 +32,20 @@
             android:text="@={viewModel.password}" />
 
         <Button
-            android:id="@+id/login_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:enabled="@{(!TextUtils.isEmpty(viewModel.userName) &amp;&amp; !TextUtils.isEmpty(viewModel.password)) }"
             android:onClick="@{()-> viewModel.login()}"
             android:text="登录" />
+
+        <TextView
+            android:id="@+id/goto_register_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:text="新人注册"/>
 
     </LinearLayout>
 

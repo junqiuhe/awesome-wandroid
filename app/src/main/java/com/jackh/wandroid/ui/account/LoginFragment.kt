@@ -1,11 +1,11 @@
 package com.jackh.wandroid.ui.account
 
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.jackh.wandroid.R
 import com.jackh.wandroid.databinding.FragmentLoginBinding
 import com.jackh.wandroid.ui.BaseFragment
-import com.jackh.wandroid.viewmodel.CustomViewModelFactory
+import com.jackh.wandroid.utils.getViewModel
 import com.jackh.wandroid.viewmodel.account.LoginViewModel
 
 /**
@@ -16,8 +16,7 @@ import com.jackh.wandroid.viewmodel.account.LoginViewModel
 class LoginFragment: BaseFragment<FragmentLoginBinding>(){
 
     private val loginViewModel: LoginViewModel by lazy {
-        ViewModelProviders.of(activity!!, CustomViewModelFactory.getCustomViewModelFactory(context!!))
-            .get(LoginViewModel::class.java)
+        getViewModel<LoginViewModel>(activity!!)
     }
 
     override fun getLayoutId(): Int = R.layout.fragment_login
@@ -27,6 +26,8 @@ class LoginFragment: BaseFragment<FragmentLoginBinding>(){
 
         viewDataBinding.viewModel = loginViewModel
 
-        viewDataBinding.lifecycleOwner = viewLifecycleOwner
+        viewDataBinding.gotoRegisterBtn.setOnClickListener {
+            findNavController().navigate(R.id.registerFragment)
+        }
     }
 }
