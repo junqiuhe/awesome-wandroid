@@ -21,6 +21,8 @@ open class BaseViewModel<DATA> : ViewModel() {
 
     protected val _toast: MutableLiveData<Int> = MutableLiveData()
 
+    protected val _hasMoreData: MutableLiveData<Boolean> = MutableLiveData()
+
     fun getLoadIndicator(): MutableLiveData<LoadIndicator> = _loadIndicator
 
     fun getError(): MutableLiveData<Throwable> = _error
@@ -28,6 +30,8 @@ open class BaseViewModel<DATA> : ViewModel() {
     fun getData(): MutableLiveData<DATA> = _data
 
     fun getToast(): MutableLiveData<Int> = _toast
+
+    fun hasMoreData(): MutableLiveData<Boolean> = _hasMoreData
 
     protected fun <T> doOnNext(
 

@@ -17,7 +17,7 @@ class HomeViewModel(
 
     private val mDataList: MutableList<ArticleInfo> = mutableListOf()
 
-    private val mPageInfo: PageInfo = PageInfo(currentPage = 0)
+    private var mPageInfo: PageInfo = PageInfo(currentPage = 0)
 
     init {
         loadData(true)
@@ -54,7 +54,10 @@ class HomeViewModel(
                     datas?.let { it ->
                         mDataList.addAll(it)
                     }
+
                     _data.value = mDataList
+
+                    _hasMoreData.value = curPage < pageCount
                 }
             })
     }

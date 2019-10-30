@@ -7,7 +7,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.jackh.wandroid"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -71,6 +71,9 @@ dependencies {
 
     implementation 'androidx.recyclerview:recyclerview:1.1.0-rc01'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
+
+
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.47-androidx'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
