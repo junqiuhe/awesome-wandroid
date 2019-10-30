@@ -1,4 +1,4 @@
-package com.jackh.wandroid.base
+package com.jackh.wandroid.base.model
 
 /**
  * Project Name：awesome-wandroid

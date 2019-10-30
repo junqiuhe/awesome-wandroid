@@ -7,8 +7,8 @@ package com.jackh.wandroid.model
  */
 data class UserInfo(
     val admin: Boolean,
-    val chapterTops: MutableList<String>,
-    val collectIds: MutableList<String>,
+    val chapterTops: List<String>?,
+    val collectIds: List<String>?,
     val email: String,
     val icon: String,
     val id: Int,

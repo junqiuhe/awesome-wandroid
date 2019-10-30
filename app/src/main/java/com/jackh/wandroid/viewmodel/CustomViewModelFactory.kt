@@ -3,9 +3,11 @@ package com.jackh.wandroid.viewmodel
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.jackh.wandroid.repository.HomeRepository
 import com.jackh.wandroid.repository.UserRepository
 import com.jackh.wandroid.viewmodel.account.LoginViewModel
 import com.jackh.wandroid.viewmodel.account.RegisterViewModel
+import com.jackh.wandroid.viewmodel.main.HomeViewModel
 
 /**
  * Project Name：awesome-wandroid
@@ -17,15 +19,25 @@ class CustomViewModelFactory(
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(clazz: Class<T>): T {
-        if (LoginViewModel::class.java.isAssignableFrom(clazz)) {
-            return clazz.getConstructor(UserRepository::class.java)
-                .newInstance(UserRepository.getInstance(context))
+        return when {
 
-        }else if(RegisterViewModel::class.java.isAssignableFrom(clazz)){
-            return clazz.getConstructor(UserRepository::class.java)
-                .newInstance(UserRepository.getInstance(context))
+            LoginViewModel::class.java.isAssignableFrom(clazz) -> {
+                clazz.getConstructor(UserRepository::class.java)
+                    .newInstance(UserRepository.getInstance(context))
+            }
+
+            RegisterViewModel::class.java.isAssignableFrom(clazz) -> {
+                clazz.getConstructor(UserRepository::class.java)
+                    .newInstance(UserRepository.getInstance(context))
+            }
+
+            HomeViewModel::class.java.isAssignableFrom(clazz) -> {
+                clazz.getConstructor(HomeRepository::class.java)
+                    .newInstance(HomeRepository.getHomeRepository())
+            }
+
+            else -> throw IllegalArgumentException("CustomViewModelFactory create method illegal argument")
         }
-        throw IllegalArgumentException("CustomViewModelFactory create method illegal argument")
     }
 
     companion object {

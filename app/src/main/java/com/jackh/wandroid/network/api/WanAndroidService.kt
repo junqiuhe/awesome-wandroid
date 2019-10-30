@@ -1,12 +1,12 @@
 package com.jackh.wandroid.network.api
 
-import com.jackh.wandroid.base.DataResult
+import com.jackh.wandroid.base.model.DataResult
+import com.jackh.wandroid.base.model.PageList
+import com.jackh.wandroid.model.ArticleInfo
+import com.jackh.wandroid.model.BannerInfo
 import com.jackh.wandroid.model.UserInfo
 import io.reactivex.Observable
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 /**
  * Project Name：awesome-wandroid
@@ -41,4 +41,17 @@ interface WanAndroidService {
      */
     @GET(value = "user/logout/json")
     fun logout(): Observable<DataResult<String>>
+
+    /**
+     * 获取首页文章列表
+     *
+     * 页码，拼接在连接中，从0开始。
+     */
+    @GET(value = "article/list/{currentPage}/json")
+    fun getArticleInfoList(
+        @Path(value = "currentPage") currentPage: Int
+    ): Observable<DataResult<PageList<ArticleInfo>>>
+
+    @GET(value = "banner/json")
+    fun getBannerInfo(): Observable<DataResult<List<BannerInfo>>>
 }

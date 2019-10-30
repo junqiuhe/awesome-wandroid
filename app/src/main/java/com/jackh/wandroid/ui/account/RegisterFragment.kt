@@ -13,7 +13,7 @@ import com.jackh.wandroid.viewmodel.account.RegisterViewModel
  * Created by hejunqiu on 2019/10/24 10:59
  * Description:
  */
-class RegisterFragment : BaseFragment<FragmentRegisterBinding>(){
+class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
 
     private val viewModel: RegisterViewModel by lazy {
         getViewModel<RegisterViewModel>(activity!!)

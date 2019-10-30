@@ -15,7 +15,7 @@ import com.jackh.wandroid.viewmodel.account.LoginViewModel
  */
 class LoginFragment: BaseFragment<FragmentLoginBinding>(){
 
-    private val loginViewModel: LoginViewModel by lazy {
+    private val viewModel: LoginViewModel by lazy {
         getViewModel<LoginViewModel>(activity!!)
     }
 
@@ -24,7 +24,7 @@ class LoginFragment: BaseFragment<FragmentLoginBinding>(){
     override fun initData(savedInstanceState: Bundle?) {
         super.initData(savedInstanceState)
 
-        viewDataBinding.viewModel = loginViewModel
+        viewDataBinding.viewModel = viewModel
 
         viewDataBinding.gotoRegisterBtn.setOnClickListener {
             findNavController().navigate(R.id.registerFragment)

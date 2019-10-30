@@ -1,10 +1,12 @@
 package com.jackh.wandroid.repository
 
 import android.content.Context
-import com.jackh.wandroid.base.DataResult
+import com.jackh.wandroid.base.model.DataResult
+import com.jackh.wandroid.base.model.ViewState
 import com.jackh.wandroid.model.UserInfo
-import com.jackh.wandroid.network.RetrofitClient
-import com.jackh.wandroid.network.api.WanAndroidService
+import com.jackh.wandroid.network.getWandroidService
+import com.jackh.wandroid.utils.HttpResultFunc
+import com.jackh.wandroid.utils.loadDataTransformer
 import io.reactivex.Observable
 
 /**
@@ -16,29 +18,29 @@ import io.reactivex.Observable
 class UserRepository private constructor(
     private val context: Context
 ) {
-    private val service: WanAndroidService = RetrofitClient
-        .getInstance()
-        .getWanAndroidService()
-
     /**
      * 登录
      */
-    fun login(userName: String, password: String): Observable<DataResult<UserInfo>> {
-        return service.login(userName, password)
+    fun login(userName: String, password: String): Observable<ViewState<UserInfo>> {
+        return getWandroidService().login(userName, password)
+            .map(HttpResultFunc())
+            .compose(loadDataTransformer())
     }
 
     /**
      * 注册
      */
-    fun register(userName: String, password: String): Observable<DataResult<UserInfo>> {
-        return service.register(userName, password, password)
+    fun register(userName: String, password: String): Observable<ViewState<UserInfo>> {
+        return getWandroidService().register(userName, password, password)
+            .map(HttpResultFunc())
+            .compose(loadDataTransformer())
     }
 
     /**
      * 退出登录
      */
     fun logout(): Observable<DataResult<String>> {
-        return service.logout()
+        return getWandroidService().logout()
     }
 
     fun saveUserInfo(userInfo: UserInfo) {

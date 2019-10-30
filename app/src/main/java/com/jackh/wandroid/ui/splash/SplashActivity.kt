@@ -2,7 +2,6 @@ package com.jackh.wandroid.ui.splash
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.jackh.wandroid.R
 import com.jackh.wandroid.databinding.ActivitySplashBinding
 import com.jackh.wandroid.ui.BaseActivity

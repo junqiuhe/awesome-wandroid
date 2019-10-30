@@ -14,9 +14,9 @@ import androidx.fragment.app.Fragment
  * Description:
  */
 
-abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
+abstract class BaseFragment<DataBinding : ViewDataBinding> : Fragment() {
 
-    protected lateinit var viewDataBinding: T
+    protected lateinit var viewDataBinding: DataBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,6 +34,7 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         initData(savedInstanceState)
     }
 

@@ -28,11 +28,11 @@ class AccountEntranceActivity : BaseActivity<ActivityAccountEntranceBinding>() {
     override fun getLayoutId(): Int = R.layout.activity_account_entrance
 
     override fun initData(savedInstanceState: Bundle?) {
-        loginViewModel.userInfo.observe(this, Observer { userInfo ->
+        loginViewModel.getData().observe(this, Observer { userInfo ->
             onBackPressed()
         })
 
-        registerViewModel.userInfo.observe(this, Observer { userInfo ->
+        registerViewModel.getData().observe(this, Observer { userInfo ->
             onBackPressed()
         })
     }

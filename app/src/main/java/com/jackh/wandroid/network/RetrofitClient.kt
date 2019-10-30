@@ -25,7 +25,10 @@ class RetrofitClient private constructor() {
 
     private val cookieJar: PersistentCookieJar by lazy {
         val context: Context = App.getContext()
-        PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(context.getSharePreferences()))
+        PersistentCookieJar(
+            SetCookieCache(),
+            SharedPrefsCookiePersistor(context.getSharePreferences())
+        )
     }
 
     init {
@@ -47,7 +50,7 @@ class RetrofitClient private constructor() {
         return retrofit.create(clazz)
     }
 
-    fun getWanAndroidService(): WanAndroidService{
+    fun getWanAndroidService(): WanAndroidService {
         return getService(WanAndroidService::class.java)
     }
 
@@ -65,3 +68,5 @@ class RetrofitClient private constructor() {
         }
     }
 }
+
+fun getWandroidService(): WanAndroidService = RetrofitClient.getInstance().getWanAndroidService()

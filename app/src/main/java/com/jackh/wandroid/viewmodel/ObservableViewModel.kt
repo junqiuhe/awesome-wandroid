@@ -8,7 +8,7 @@ import androidx.databinding.PropertyChangeRegistry
  * Created by hejunqiu on 2019/10/24 15:42
  * Description:
  */
-open class ObservableViewModel : BaseViewModel(), Observable{
+open class ObservableViewModel<DATA> : BaseViewModel<DATA>(), Observable{
 
     private val callbacks: PropertyChangeRegistry by lazy {
         PropertyChangeRegistry()
