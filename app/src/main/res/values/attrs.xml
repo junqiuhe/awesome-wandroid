@@ -3,4 +3,10 @@
     <declare-styleable name="SquareImageView">
         <attr name="baseWidth" format="boolean"/>
     </declare-styleable>
+
+    <declare-styleable name="CustomStateView">
+        <attr name="emptyText" format="reference|string"/>
+        <attr name="errorText" format="reference|string"/>
+        <attr name="errorImageResId" format="reference"/>
+    </declare-styleable>
 </resources>
