@@ -37,6 +37,8 @@ class RegisterViewModel(
         }
 
         userRepository.register(userName = userName.value!!, password = password.value!!)
-            .subscribe(doOnNext())
+            .subscribe(doOnNext {
+                _data.value = it
+            })
     }
 }

@@ -43,7 +43,7 @@ class HomeRepository private constructor() {
 
         private var mRepository: HomeRepository? = null
 
-        fun getHomeRepository(): HomeRepository {
+        fun getInstance(): HomeRepository {
             return synchronized(HomeRepository::class.java) {
                 if (mRepository == null) {
                     mRepository = HomeRepository()

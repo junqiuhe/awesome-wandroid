@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.jackh.wandroid.R
 import com.jackh.wandroid.adapter.HomeAdapter
 import com.jackh.wandroid.databinding.CommonRvLayoutBinding
@@ -21,9 +20,7 @@ import com.jackh.wandroid.viewmodel.main.HomeViewModel
 
 class HomeFragment : BaseHomeFragment<CommonRvLayoutBinding>() {
 
-    private val mAdapter: HomeAdapter by lazy {
-        HomeAdapter()
-    }
+    private lateinit var mAdapter: HomeAdapter
 
     private val viewModel: HomeViewModel by lazy {
         getViewModel<HomeViewModel>()
@@ -42,13 +39,20 @@ class HomeFragment : BaseHomeFragment<CommonRvLayoutBinding>() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        listDataUIProxy = ListDataUIProxy(viewModel, mAdapter)
-        return listDataUIProxy.onCreateView(inflater, container)
+
+        listDataUIProxy = ListDataUIProxy(context!!) { isRefresh ->
+            viewModel.loadData(isRefresh)
+        }
+
+        viewDataBinding = listDataUIProxy.onCreateView(inflater, container)
+        return viewDataBinding.root
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-        listDataUIProxy.initData(LinearLayoutManager(context), this) { isRefresh ->
-            viewModel.loadData(isRefresh)
-        }
+        mAdapter = HomeAdapter()
+
+        listDataUIProxy.initData(viewModel, this, mAdapter)
+
+        viewModel.loadData(true)
     }
 }

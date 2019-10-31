@@ -19,10 +19,6 @@ class HomeViewModel(
 
     private var mPageInfo: PageInfo = PageInfo(currentPage = 0)
 
-    init {
-        loadData(true)
-    }
-
     @SuppressLint("CheckResult")
     private fun refresh() {
 

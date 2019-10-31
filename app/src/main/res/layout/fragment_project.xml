@@ -1,19 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <FrameLayout
-        android:orientation="vertical"
+    <com.jackh.wandroid.widget.CustomStateView
+        android:id="@+id/state_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="这是项目页"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:layout_gravity="center"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    </FrameLayout>
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/project_tab"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                app:tabMode="scrollable" />
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+    </com.jackh.wandroid.widget.CustomStateView>
 
 </layout>

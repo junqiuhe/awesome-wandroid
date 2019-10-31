@@ -4,6 +4,7 @@ import com.jackh.wandroid.base.model.DataResult
 import com.jackh.wandroid.base.model.PageList
 import com.jackh.wandroid.model.ArticleInfo
 import com.jackh.wandroid.model.BannerInfo
+import com.jackh.wandroid.model.SystemTreeInfo
 import com.jackh.wandroid.model.UserInfo
 import io.reactivex.Observable
 import retrofit2.http.*
@@ -54,4 +55,16 @@ interface WanAndroidService {
 
     @GET(value = "banner/json")
     fun getBannerInfo(): Observable<DataResult<List<BannerInfo>>>
+
+    /**
+     * 项目分类
+     */
+    @GET(value = "project/tree/json")
+    fun getProjectTree(): Observable<DataResult<List<SystemTreeInfo>>>
+
+    @GET(value = "project/list/{currentPage}/json")
+    fun getProjectListById(
+        @Path(value = "currentPage") currentPage: Int,
+        @Query("cid") id: Int
+    ): Observable<DataResult<PageList<ArticleInfo>>>
 }

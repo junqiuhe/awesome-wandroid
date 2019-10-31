@@ -23,10 +23,12 @@
 
         <activity android:name=".ui.main.MainActivity"
             android:theme="@style/NoActionBar"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
 
         <activity android:name=".ui.account.AccountEntranceActivity"
-            android:theme="@style/NoActionBar"/>
+            android:theme="@style/NoActionBar"
+            android:screenOrientation="portrait"/>
 
     </application>
 

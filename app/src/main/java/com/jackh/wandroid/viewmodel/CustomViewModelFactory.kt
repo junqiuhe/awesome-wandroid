@@ -4,10 +4,14 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.jackh.wandroid.repository.HomeRepository
+import com.jackh.wandroid.repository.ProjectListRepository
+import com.jackh.wandroid.repository.ProjectRepository
 import com.jackh.wandroid.repository.UserRepository
 import com.jackh.wandroid.viewmodel.account.LoginViewModel
 import com.jackh.wandroid.viewmodel.account.RegisterViewModel
 import com.jackh.wandroid.viewmodel.main.HomeViewModel
+import com.jackh.wandroid.viewmodel.main.ProjectListViewModel
+import com.jackh.wandroid.viewmodel.main.ProjectViewModel
 
 /**
  * Project Name：awesome-wandroid
@@ -33,7 +37,17 @@ class CustomViewModelFactory(
 
             HomeViewModel::class.java.isAssignableFrom(clazz) -> {
                 clazz.getConstructor(HomeRepository::class.java)
-                    .newInstance(HomeRepository.getHomeRepository())
+                    .newInstance(HomeRepository.getInstance())
+            }
+
+            ProjectViewModel::class.java.isAssignableFrom(clazz) -> {
+                clazz.getConstructor(ProjectRepository::class.java)
+                    .newInstance(ProjectRepository.getInstance())
+            }
+
+            ProjectListViewModel::class.java.isAssignableFrom(clazz) -> {
+                clazz.getConstructor(ProjectListRepository::class.java)
+                    .newInstance(ProjectListRepository.getInstance())
             }
 
             else -> throw IllegalArgumentException("CustomViewModelFactory create method illegal argument")

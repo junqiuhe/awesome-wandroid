@@ -7,7 +7,6 @@ import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersisto
 import com.jackh.wandroid.BuildConfig
 import com.jackh.wandroid.base.App
 import com.jackh.wandroid.network.api.WanAndroidService
-import com.jackh.wandroid.utils.getSharePreferences
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -27,7 +26,7 @@ class RetrofitClient private constructor() {
         val context: Context = App.getContext()
         PersistentCookieJar(
             SetCookieCache(),
-            SharedPrefsCookiePersistor(context.getSharePreferences())
+            SharedPrefsCookiePersistor(context)
         )
     }
 

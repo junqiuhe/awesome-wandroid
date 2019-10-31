@@ -1,11 +1,12 @@
 package com.jackh.wandroid.utils
 
+import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -19,30 +20,33 @@ import com.jackh.wandroid.viewmodel.BaseViewModel
  * Description:
  */
 class ListDataUIProxy<DATA>(
-    private val viewModel: BaseViewModel<List<DATA>>,
-    private val adapter: BaseQuickAdapter<DATA, BaseViewHolder>
+    private val context: Context,
+    private val loadData: (Boolean) -> Unit
 ) {
 
     private lateinit var viewDataBinding: CommonRvLayoutBinding
 
-    fun onCreateView(inflater: LayoutInflater, container: ViewGroup?): View {
+    fun onCreateView(inflater: LayoutInflater, container: ViewGroup?): CommonRvLayoutBinding {
         viewDataBinding = DataBindingUtil.inflate(
             inflater,
             getLayoutId(),
             container,
             false
         )
-        return viewDataBinding.root
+        return viewDataBinding
     }
 
     private fun getLayoutId(): Int = R.layout.layout_common_recycler_view
 
     fun initData(
-        layoutManager: RecyclerView.LayoutManager,
+        viewModel: BaseViewModel<List<DATA>>,
         lifecycleOwner: LifecycleOwner,
-        loadData: (Boolean) -> Unit
+        adapter: BaseQuickAdapter<DATA, BaseViewHolder>,
+        layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
     ) {
+
         viewDataBinding.recyclerView.layoutManager = layoutManager
+
         viewDataBinding.recyclerView.adapter = adapter
 
         adapter.setOnLoadMoreListener({
@@ -63,13 +67,13 @@ class ListDataUIProxy<DATA>(
 
         viewModel.getError().observe(lifecycleOwner, Observer { error ->
             adapter.loadMoreFail()
-            switchState(true)
+            switchState(true, adapter)
         })
 
         viewModel.getData().observe(lifecycleOwner, Observer { dataList ->
             adapter.loadMoreComplete()
             adapter.replaceData(dataList)
-            switchState(false)
+            switchState(false, adapter)
         })
 
         viewModel.hasMoreData().observe(lifecycleOwner, Observer { hasMore ->
@@ -77,7 +81,7 @@ class ListDataUIProxy<DATA>(
         })
     }
 
-    private fun switchState(loadError: Boolean) {
+    private fun switchState(loadError: Boolean, adapter: BaseQuickAdapter<DATA, BaseViewHolder>) {
         if (adapter.data.isEmpty()) {
             if (loadError) {
                 viewDataBinding.stateView.showError()

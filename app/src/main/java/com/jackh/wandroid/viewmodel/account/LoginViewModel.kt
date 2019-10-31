@@ -37,6 +37,8 @@ class LoginViewModel(
             return
         }
         userRepository.login(userName!!, password!!)
-            .subscribe(doOnNext())
+            .subscribe(doOnNext{
+                _data.value = it
+            })
     }
 }
