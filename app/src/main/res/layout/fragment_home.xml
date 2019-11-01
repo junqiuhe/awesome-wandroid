@@ -19,6 +19,14 @@
                 android:layout_gravity="center_horizontal"
                 app:tabMode="fixed"/>
 
+            <ImageView
+                android:id="@+id/search_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/search"
+                android:layout_gravity="end|right"
+                style="?attr/actionButtonStyle"/>
+
         </FrameLayout>
 
         <androidx.viewpager.widget.ViewPager

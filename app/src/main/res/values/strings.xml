@@ -6,6 +6,8 @@
     <string name="title_wx_publish_num">公众号</string>
     <string name="title_mine">我</string>
 
+    <string name="search_hint_text">帮你找到感兴趣的内容</string>
+
     <string name="empty_text">没有您想要的内容哦!!!</string>
     <string name="network_error">网络连接异常\n请检查您的Wi-Fi和手机网络是否正常</string>
     <string name="network_error_retry_text">重新加载</string>

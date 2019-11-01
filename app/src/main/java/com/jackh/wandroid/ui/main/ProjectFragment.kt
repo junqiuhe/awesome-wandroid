@@ -1,6 +1,7 @@
 package com.jackh.wandroid.ui.main
 
 import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
 import androidx.lifecycle.Observer
@@ -39,16 +40,22 @@ class ProjectFragment : BaseHomeFragment<FragmentProjectBinding>() {
         viewDataBinding.projectTab.setupWithViewPager(viewDataBinding.viewPager)
 
         viewModel.getLoadIndicator().observe(this, Observer {
-            if (it.isLoading && viewModel.getData().value.isNullOrEmpty()) {
-                viewDataBinding.stateView.showLoading()
-            }
+            viewDataBinding.projectTab.visibility =
+                if (it.isLoading && viewModel.getData().value.isNullOrEmpty()) {
+                    viewDataBinding.stateView.showLoading()
+                    View.GONE
+                } else {
+                    View.VISIBLE
+                }
         })
 
         viewModel.getData().observe(this, Observer { treeList: List<SystemTreeInfo>? ->
-            if (treeList.isNullOrEmpty()) {
+            viewDataBinding.projectTab.visibility = if (treeList.isNullOrEmpty()) {
                 viewDataBinding.stateView.showEmpty()
+                View.GONE
             } else {
                 viewDataBinding.stateView.showContent()
+                View.VISIBLE
             }
 
             treeList?.run {
@@ -57,8 +64,11 @@ class ProjectFragment : BaseHomeFragment<FragmentProjectBinding>() {
         })
 
         viewModel.getError().observe(this, Observer {
-            if (viewModel.getData().value.isNullOrEmpty()) {
+            viewDataBinding.projectTab.visibility = if (viewModel.getData().value.isNullOrEmpty()) {
                 viewDataBinding.stateView.showError()
+                View.GONE
+            } else {
+                View.VISIBLE
             }
         })
     }

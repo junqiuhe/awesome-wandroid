@@ -9,4 +9,7 @@
     <color name="black">#000000</color>
     <color name="gray">#848383</color>
 
+    <color name="color_ddd">#DDDDDD</color>
+    <color name="color_aaa">#AAAAAA</color>
+
 </resources>
