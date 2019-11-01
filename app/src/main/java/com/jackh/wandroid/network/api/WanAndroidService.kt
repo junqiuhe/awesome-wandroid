@@ -85,4 +85,22 @@ interface WanAndroidService {
     fun getLatestProject(
         @Path(value = "currentPage") currentPage: Int
     ): Observable<DataResult<PageList<ArticleInfo>>>
+
+    /**
+     * 获取公众号列表
+     */
+    @GET(value = "wxarticle/chapters/json")
+    fun getWxNumberList(): Observable<DataResult<List<SystemTreeInfo>>>
+
+    /**
+     * 获取微信公众号文章
+     *
+     * currentPage 从1开始
+     */
+    @GET(value = "wxarticle/list/{id}/{currentPage}/json")
+    fun getWxArticleById(
+        @Path(value = "id") id: Int,
+        @Path(value = "currentPage") currentPage: Int,
+        @Query(value = "k") key: String? = null
+    ): Observable<DataResult<PageList<ArticleInfo>>>
 }

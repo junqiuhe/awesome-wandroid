@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import com.jackh.wandroid.base.model.PageInfo
 import com.jackh.wandroid.base.model.PageList
 import com.jackh.wandroid.model.ArticleInfo
-import com.jackh.wandroid.repository.ProjectListRepository
+import com.jackh.wandroid.repository.ProjectRepository
 import com.jackh.wandroid.viewmodel.BaseViewModel
 
 /**
@@ -14,7 +14,7 @@ import com.jackh.wandroid.viewmodel.BaseViewModel
  */
 
 class ProjectListViewModel(
-    private val repository: ProjectListRepository
+    private val repository: ProjectRepository
 ) :
     BaseViewModel<List<ArticleInfo>>() {
 

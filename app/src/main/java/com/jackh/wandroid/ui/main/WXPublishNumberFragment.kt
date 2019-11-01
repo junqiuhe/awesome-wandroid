@@ -1,7 +1,15 @@
 package com.jackh.wandroid.ui.main
 
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentPagerAdapter
+import androidx.lifecycle.Observer
 import com.jackh.wandroid.R
+import com.jackh.wandroid.adapter.CommonFragmentAdapter
 import com.jackh.wandroid.databinding.FragmentWxPublishNumBinding
+import com.jackh.wandroid.model.SystemTreeInfo
+import com.jackh.wandroid.utils.getViewModel
+import com.jackh.wandroid.viewmodel.main.WxPublishNumViewModel
 
 /**
  * Project Name：awesome-wandroid
@@ -9,11 +17,77 @@ import com.jackh.wandroid.databinding.FragmentWxPublishNumBinding
  * Description:
  */
 
-class WXPublishNumberFragment : BaseHomeFragment<FragmentWxPublishNumBinding>(){
+class WXPublishNumberFragment : BaseHomeFragment<FragmentWxPublishNumBinding>() {
+
+    private val viewModel: WxPublishNumViewModel by lazy {
+        getViewModel<WxPublishNumViewModel>()
+    }
 
     override fun getNavIconResId(): Int = R.drawable.wx_publish_num_icon
 
     override fun getNavTitleResId(): Int = R.string.title_wx_publish_num
 
     override fun getLayoutId(): Int = R.layout.fragment_wx_publish_num
+
+    override fun initData(savedInstanceState: Bundle?) {
+        viewDataBinding.wxNumberTab.setupWithViewPager(viewDataBinding.viewPager)
+
+        viewModel.getError().observe(this, Observer {
+            if (viewModel.getData().value.isNullOrEmpty()) {
+                viewDataBinding.stateView.showError()
+            }
+        })
+
+        viewModel.getLoadIndicator().observe(this, Observer {
+            if (viewModel.getData().value.isNullOrEmpty()) {
+                viewDataBinding.stateView.showLoading()
+            }
+        })
+
+        viewModel.getData().observe(this, Observer {
+            if (it.isNullOrEmpty()) {
+                viewDataBinding.stateView.showEmpty()
+            } else {
+                viewDataBinding.stateView.showContent()
+            }
+
+            it?.run {
+                attachFragment(this)
+            }
+        })
+    }
+
+    private var adapter: CommonFragmentAdapter? = null
+
+    private fun attachFragment(treeList: List<SystemTreeInfo>) {
+        if (adapter == null) {
+            adapter = CommonFragmentAdapter(
+                manager = childFragmentManager,
+                behavior = FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+            )
+            viewDataBinding.viewPager.adapter = adapter
+        }
+
+        val fragmentList = mutableListOf<Fragment>()
+        val titleList = mutableListOf<String>()
+        for (index in treeList.indices) {
+            val systemTreeInfo = treeList[index]
+
+            var fragment: Fragment? = findFragmentByPos(index)
+            if (fragment == null) {
+                fragment = WxArticleListFragment.newInstance(systemTreeInfo.id)
+            }
+            fragmentList.add(fragment)
+            titleList.add(systemTreeInfo.name.replace("&amp;", "&"))
+        }
+
+        adapter?.run {
+            setFragmentList(fragmentList)
+            setTitleList(titleList)
+        }
+    }
+
+    private fun findFragmentByPos(pos: Int): Fragment? {
+        return childFragmentManager.findFragmentByTag("android:switcher:${R.id.view_pager}:${pos}")
+    }
 }

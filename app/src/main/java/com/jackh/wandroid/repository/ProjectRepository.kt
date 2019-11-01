@@ -5,7 +5,9 @@ import com.google.gson.GsonBuilder
 import com.google.gson.JsonSyntaxException
 import com.google.gson.reflect.TypeToken
 import com.jackh.wandroid.base.App
+import com.jackh.wandroid.base.model.PageList
 import com.jackh.wandroid.base.model.ViewState
+import com.jackh.wandroid.model.ArticleInfo
 import com.jackh.wandroid.model.SystemTreeInfo
 import com.jackh.wandroid.network.getWandroidService
 import com.jackh.wandroid.utils.HttpResultFunc
@@ -19,7 +21,6 @@ import io.reactivex.Observable
  * Created by hejunqiu on 2019/10/31 10:32
  * Description:
  */
-
 class ProjectRepository private constructor() {
 
     private var projectTree: String by App.getContext().getSharePreferences().string(
@@ -51,6 +52,24 @@ class ProjectRepository private constructor() {
     fun getRemoteProjectTree(): Observable<ViewState<List<SystemTreeInfo>>> {
         return getWandroidService().getProjectTree()
             .map(HttpResultFunc(checkResultNull = false))
+            .compose(loadDataTransformer())
+    }
+
+
+    fun getProjectListById(
+        currentPage: Int,
+        id: Int
+    ): Observable<ViewState<PageList<ArticleInfo>>> {
+        return getWandroidService().getProjectListById(currentPage, id)
+            .map(HttpResultFunc())
+            .compose(
+                loadDataTransformer()
+            )
+    }
+
+    fun getLatestProjectList(currentPage: Int): Observable<ViewState<PageList<ArticleInfo>>> {
+        return getWandroidService().getLatestProject(currentPage)
+            .map(HttpResultFunc())
             .compose(loadDataTransformer())
     }
 
