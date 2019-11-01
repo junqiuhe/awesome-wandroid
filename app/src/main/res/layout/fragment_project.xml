@@ -16,6 +16,7 @@
                 android:id="@+id/project_tab"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
+                android:background="@android:color/white"
                 app:tabMode="scrollable" />
 
             <androidx.viewpager.widget.ViewPager

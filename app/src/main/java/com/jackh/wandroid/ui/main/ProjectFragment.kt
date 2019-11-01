@@ -84,7 +84,7 @@ class ProjectFragment : BaseHomeFragment<FragmentProjectBinding>() {
                 fragment = ProjectListFragment.newInstance(systemTreeInfo.id)
             }
             fragmentList.add(fragment)
-            titleList.add(systemTreeInfo.name)
+            titleList.add(systemTreeInfo.name.replace("&amp;", "&"))
         }
 
         adapter?.run {

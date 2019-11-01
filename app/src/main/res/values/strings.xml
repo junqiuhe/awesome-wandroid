@@ -10,4 +10,7 @@
     <string name="network_error">网络连接异常\n请检查您的Wi-Fi和手机网络是否正常</string>
     <string name="network_error_retry_text">重新加载</string>
 
+    <string name="home_tab_latest_article_title">最新博文</string>
+    <string name="home_tab_latest_project_title">最新项目</string>
+
 </resources>

@@ -26,6 +26,12 @@ class ProjectListRepository private constructor() {
             )
     }
 
+    fun getLatestProjectList(currentPage: Int): Observable<ViewState<PageList<ArticleInfo>>> {
+        return getWandroidService().getLatestProject(currentPage)
+            .map(HttpResultFunc())
+            .compose(loadDataTransformer())
+    }
+
     companion object {
 
         private var instance: ProjectListRepository? = null

@@ -9,7 +9,7 @@ import com.jackh.wandroid.network.getWandroidService
 import com.jackh.wandroid.utils.HttpResultFunc
 import com.jackh.wandroid.utils.loadDataTransformer
 import io.reactivex.Observable
-import io.reactivex.functions.BiFunction
+import io.reactivex.functions.Function3
 
 /**
  * Project Name：awesome-wandroid
@@ -26,15 +26,17 @@ class HomeRepository private constructor() {
     }
 
     @SuppressLint("CheckResult")
-    fun zipArticleAndBannerInfo(currentPage: Int = 0): Observable<ViewState<ZipArticleAndBannerInfo>> {
+    fun zipLatestBannerTopInfo(currentPage: Int = 0): Observable<ViewState<ZipLatestBannerTopInfo>> {
         return Observable.zip(
 
             getWandroidService().getArticleInfoList(currentPage).map(HttpResultFunc()),
 
+            getWandroidService().getTopArticle().map(HttpResultFunc(false)),
+
             getWandroidService().getBannerInfo().map(HttpResultFunc(false)),
 
-            BiFunction<PageList<ArticleInfo>, List<BannerInfo>, ZipArticleAndBannerInfo> { t1, t2 ->
-                ZipArticleAndBannerInfo(t1, t2)
+            Function3<PageList<ArticleInfo>, List<ArticleInfo>, List<BannerInfo>, ZipLatestBannerTopInfo> { t1, t2, t3 ->
+                ZipLatestBannerTopInfo(t1, t2, t3)
             }
         ).compose(loadDataTransformer())
     }
@@ -54,7 +56,8 @@ class HomeRepository private constructor() {
     }
 }
 
-data class ZipArticleAndBannerInfo(
+data class ZipLatestBannerTopInfo(
     val articleList: PageList<ArticleInfo>,
+    val topArticleList: List<ArticleInfo>?,
     val bannerList: List<BannerInfo>?
 )

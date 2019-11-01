@@ -9,7 +9,8 @@ import com.jackh.wandroid.repository.ProjectRepository
 import com.jackh.wandroid.repository.UserRepository
 import com.jackh.wandroid.viewmodel.account.LoginViewModel
 import com.jackh.wandroid.viewmodel.account.RegisterViewModel
-import com.jackh.wandroid.viewmodel.main.HomeViewModel
+import com.jackh.wandroid.viewmodel.main.LatestArticleViewModel
+import com.jackh.wandroid.viewmodel.main.LatestProjectViewModel
 import com.jackh.wandroid.viewmodel.main.ProjectListViewModel
 import com.jackh.wandroid.viewmodel.main.ProjectViewModel
 
@@ -35,7 +36,7 @@ class CustomViewModelFactory(
                     .newInstance(UserRepository.getInstance(context))
             }
 
-            HomeViewModel::class.java.isAssignableFrom(clazz) -> {
+            LatestArticleViewModel::class.java.isAssignableFrom(clazz) -> {
                 clazz.getConstructor(HomeRepository::class.java)
                     .newInstance(HomeRepository.getInstance())
             }
@@ -46,6 +47,11 @@ class CustomViewModelFactory(
             }
 
             ProjectListViewModel::class.java.isAssignableFrom(clazz) -> {
+                clazz.getConstructor(ProjectListRepository::class.java)
+                    .newInstance(ProjectListRepository.getInstance())
+            }
+
+            LatestProjectViewModel::class.java.isAssignableFrom(clazz) -> {
                 clazz.getConstructor(ProjectListRepository::class.java)
                     .newInstance(ProjectListRepository.getInstance())
             }

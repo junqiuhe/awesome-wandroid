@@ -53,6 +53,9 @@ interface WanAndroidService {
         @Path(value = "currentPage") currentPage: Int
     ): Observable<DataResult<PageList<ArticleInfo>>>
 
+    /**
+     * 获取BannerInfo
+     */
     @GET(value = "banner/json")
     fun getBannerInfo(): Observable<DataResult<List<BannerInfo>>>
 
@@ -66,5 +69,20 @@ interface WanAndroidService {
     fun getProjectListById(
         @Path(value = "currentPage") currentPage: Int,
         @Query("cid") id: Int
+    ): Observable<DataResult<PageList<ArticleInfo>>>
+
+    /**
+     * 获取置顶文章
+     */
+    @GET(value = "article/top/json")
+    fun getTopArticle(): Observable<DataResult<List<ArticleInfo>>>
+
+    /**
+     * 获取最新项目信息.
+     * 从0开始.
+     */
+    @GET(value = "article/listproject/{currentPage}/json")
+    fun getLatestProject(
+        @Path(value = "currentPage") currentPage: Int
     ): Observable<DataResult<PageList<ArticleInfo>>>
 }

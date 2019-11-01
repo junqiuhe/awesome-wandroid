@@ -1,16 +1,12 @@
 package com.jackh.wandroid.ui.main
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+import androidx.viewpager.widget.PagerAdapter
 import com.jackh.wandroid.R
-import com.jackh.wandroid.adapter.HomeAdapter
-import com.jackh.wandroid.databinding.CommonRvLayoutBinding
-import com.jackh.wandroid.model.ArticleInfo
-import com.jackh.wandroid.utils.ListDataUIProxy
-import com.jackh.wandroid.utils.getViewModel
-import com.jackh.wandroid.viewmodel.main.HomeViewModel
+import com.jackh.wandroid.adapter.CommonFragmentAdapter
+import com.jackh.wandroid.databinding.FragmentHomeBinding
 
 /**
  * Project Name：awesome-wandroid
@@ -18,41 +14,46 @@ import com.jackh.wandroid.viewmodel.main.HomeViewModel
  * Description:
  */
 
-class HomeFragment : BaseHomeFragment<CommonRvLayoutBinding>() {
-
-    private lateinit var mAdapter: HomeAdapter
-
-    private val viewModel: HomeViewModel by lazy {
-        getViewModel<HomeViewModel>()
-    }
-
-    private lateinit var listDataUIProxy: ListDataUIProxy<ArticleInfo>
+class HomeFragment : BaseHomeFragment<FragmentHomeBinding>() {
 
     override fun getNavIconResId(): Int = R.drawable.home_icon
 
     override fun getNavTitleResId(): Int = R.string.title_home
 
-    override fun getLayoutId(): Int = R.layout.layout_common_recycler_view
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        listDataUIProxy = ListDataUIProxy(context!!) { isRefresh ->
-            viewModel.loadData(isRefresh)
-        }
-
-        viewDataBinding = listDataUIProxy.onCreateView(inflater, container)
-        return viewDataBinding.root
-    }
+    override fun getLayoutId(): Int = R.layout.fragment_home
 
     override fun initData(savedInstanceState: Bundle?) {
-        mAdapter = HomeAdapter()
+        viewDataBinding.homeTab.setupWithViewPager(viewDataBinding.viewPager)
 
-        listDataUIProxy.initData(viewModel, this, mAdapter)
+        viewDataBinding.viewPager.adapter = genAdapter()
+    }
 
-        viewModel.loadData(true)
+    private fun genAdapter(): PagerAdapter {
+        val titleList = mutableListOf(
+            getString(R.string.home_tab_latest_article_title),
+            getString(R.string.home_tab_latest_project_title)
+        )
+        val fragmentList = mutableListOf<Fragment>()
+        for (index in 0 until titleList.size) {
+            when (index) {
+                0 -> {
+                    fragmentList.add(findFragmentByPos(index) ?: LatestArticleFragment())
+                }
+                1 -> {
+                    fragmentList.add(findFragmentByPos(index) ?: LatestProjectFragment())
+                }
+                else -> {
+                    throw IllegalArgumentException("params position is error.")
+                }
+            }
+        }
+        return CommonFragmentAdapter(
+            titleList, fragmentList, childFragmentManager,
+            BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+        )
+    }
+
+    private fun findFragmentByPos(pos: Int): Fragment? {
+        return childFragmentManager.findFragmentByTag("android:switcher:${R.id.view_pager}:${pos}")
     }
 }

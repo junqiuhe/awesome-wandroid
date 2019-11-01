@@ -11,7 +11,7 @@ import com.jackh.wandroid.viewmodel.BaseViewModel
  * Created by hejunqiu on 2019/10/29 10:31
  * Description:
  */
-class HomeViewModel(
+class LatestArticleViewModel(
     private val homeRepository: HomeRepository
 ) : BaseViewModel<List<ArticleInfo>>() {
 
@@ -24,13 +24,16 @@ class HomeViewModel(
 
         mPageInfo.resetData()
 
-        homeRepository.zipArticleAndBannerInfo(mPageInfo.currentPage)
+        homeRepository.zipLatestBannerTopInfo(mPageInfo.currentPage)
             .subscribe(doOnNext {
                 it?.run {
                     mPageInfo.currentPage = articleList.curPage
                     mPageInfo.totalPage = articleList.pageCount
 
                     mDataList.clear()
+                    topArticleList?.run {
+                        mDataList.addAll(this)
+                    }
                     articleList.datas?.let { it ->
                         mDataList.addAll(it)
                     }
