@@ -2,15 +2,34 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.jackh.wandroid.widget.CustomStateView
-        android:id="@+id/state_view"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:orientation="vertical"
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            app:elevation="0dp">
+
+            <TextView
+                android:id="@+id/search_btn"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/round_bg_15dp"
+                android:drawableLeft="@drawable/search_icon"
+                android:drawablePadding="8dp"
+                android:hint="@string/search_hint_text"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/color_aaa"
+                android:gravity="center_vertical"
+                app:layout_scrollFlags="scroll|enterAlways"/>
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/wx_number_tab"
@@ -19,13 +38,26 @@
                 android:background="@android:color/white"
                 app:tabMode="scrollable"/>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/colorWindowBg"/>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <com.jackh.wandroid.widget.CustomStateView
+            android:id="@+id/state_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/view_pager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 
-        </LinearLayout>
+        </com.jackh.wandroid.widget.CustomStateView>
 
-    </com.jackh.wandroid.widget.CustomStateView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

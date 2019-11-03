@@ -1,6 +1,7 @@
 package com.jackh.wandroid.ui.main
 
 import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.Observer
@@ -33,22 +34,32 @@ class WXPublishNumberFragment : BaseHomeFragment<FragmentWxPublishNumBinding>() 
         viewDataBinding.wxNumberTab.setupWithViewPager(viewDataBinding.viewPager)
 
         viewModel.getError().observe(this, Observer {
-            if (viewModel.getData().value.isNullOrEmpty()) {
-                viewDataBinding.stateView.showError()
-            }
+            viewDataBinding.wxNumberTab.visibility =
+                if (viewModel.getData().value.isNullOrEmpty()) {
+                    viewDataBinding.stateView.showError()
+                    View.GONE
+                } else {
+                    View.VISIBLE
+                }
         })
 
         viewModel.getLoadIndicator().observe(this, Observer {
-            if (viewModel.getData().value.isNullOrEmpty()) {
-                viewDataBinding.stateView.showLoading()
-            }
+            viewDataBinding.wxNumberTab.visibility =
+                if (viewModel.getData().value.isNullOrEmpty()) {
+                    viewDataBinding.stateView.showLoading()
+                    View.GONE
+                } else {
+                    View.VISIBLE
+                }
         })
 
         viewModel.getData().observe(this, Observer {
-            if (it.isNullOrEmpty()) {
+            viewDataBinding.wxNumberTab.visibility = if (it.isNullOrEmpty()) {
                 viewDataBinding.stateView.showEmpty()
+                View.GONE
             } else {
                 viewDataBinding.stateView.showContent()
+                View.VISIBLE
             }
 
             it?.run {
