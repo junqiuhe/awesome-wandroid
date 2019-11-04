@@ -2,10 +2,7 @@ package com.jackh.wandroid.network.api
 
 import com.jackh.wandroid.base.model.DataResult
 import com.jackh.wandroid.base.model.PageList
-import com.jackh.wandroid.model.ArticleInfo
-import com.jackh.wandroid.model.BannerInfo
-import com.jackh.wandroid.model.SystemTreeInfo
-import com.jackh.wandroid.model.UserInfo
+import com.jackh.wandroid.model.*
 import io.reactivex.Observable
 import retrofit2.http.*
 
@@ -102,5 +99,18 @@ interface WanAndroidService {
         @Path(value = "id") id: Int,
         @Path(value = "currentPage") currentPage: Int,
         @Query(value = "k") key: String? = null
+    ): Observable<DataResult<PageList<ArticleInfo>>>
+
+    @GET(value = "hotkey/json")
+    fun getHotSearchInfo(): Observable<DataResult<List<HotSearchInfo>>>
+
+    /**
+     * 搜索, currentPage 从0开始.
+     */
+    @FormUrlEncoded
+    @POST(value = "article/query/{currentPage}/json")
+    fun search(
+        @Path(value = "currentPage") currentPage: Int,
+        @Field(value = "k") key: String = ""
     ): Observable<DataResult<PageList<ArticleInfo>>>
 }

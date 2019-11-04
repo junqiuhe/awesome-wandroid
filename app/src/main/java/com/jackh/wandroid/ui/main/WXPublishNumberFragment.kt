@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.jackh.wandroid.R
 import com.jackh.wandroid.adapter.CommonFragmentAdapter
 import com.jackh.wandroid.databinding.FragmentWxPublishNumBinding
@@ -31,6 +32,11 @@ class WXPublishNumberFragment : BaseHomeFragment<FragmentWxPublishNumBinding>() 
     override fun getLayoutId(): Int = R.layout.fragment_wx_publish_num
 
     override fun initData(savedInstanceState: Bundle?) {
+
+        viewDataBinding.searchBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_searchFragment)
+        }
+
         viewDataBinding.wxNumberTab.setupWithViewPager(viewDataBinding.viewPager)
 
         viewModel.getError().observe(this, Observer {
@@ -68,17 +74,9 @@ class WXPublishNumberFragment : BaseHomeFragment<FragmentWxPublishNumBinding>() 
         })
     }
 
-    private var adapter: CommonFragmentAdapter? = null
+    private lateinit var adapter: CommonFragmentAdapter
 
     private fun attachFragment(treeList: List<SystemTreeInfo>) {
-        if (adapter == null) {
-            adapter = CommonFragmentAdapter(
-                manager = childFragmentManager,
-                behavior = FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
-            )
-            viewDataBinding.viewPager.adapter = adapter
-        }
-
         val fragmentList = mutableListOf<Fragment>()
         val titleList = mutableListOf<String>()
         for (index in treeList.indices) {
@@ -92,10 +90,13 @@ class WXPublishNumberFragment : BaseHomeFragment<FragmentWxPublishNumBinding>() 
             titleList.add(systemTreeInfo.name.replace("&amp;", "&"))
         }
 
-        adapter?.run {
-            setFragmentList(fragmentList)
-            setTitleList(titleList)
-        }
+        adapter = CommonFragmentAdapter(
+            titleList = titleList,
+            fragmentList = fragmentList,
+            manager = childFragmentManager,
+            behavior = FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+        )
+        viewDataBinding.viewPager.adapter = adapter
     }
 
     private fun findFragmentByPos(pos: Int): Fragment? {

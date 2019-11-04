@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.jackh.wandroid.R
 import com.jackh.wandroid.adapter.CommonFragmentAdapter
 import com.jackh.wandroid.databinding.FragmentProjectBinding
@@ -32,6 +33,10 @@ class ProjectFragment : BaseHomeFragment<FragmentProjectBinding>() {
 
     override fun initData(savedInstanceState: Bundle?) {
         super.initData(savedInstanceState)
+
+        viewDataBinding.searchBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_searchFragment)
+        }
 
         viewDataBinding.stateView.setOnRetryBtnClickListener {
             viewModel.getTreeInfo()
@@ -73,17 +78,9 @@ class ProjectFragment : BaseHomeFragment<FragmentProjectBinding>() {
         })
     }
 
-    private var adapter: CommonFragmentAdapter? = null
+    private lateinit var adapter: CommonFragmentAdapter
 
     private fun attachFragment(treeList: List<SystemTreeInfo>) {
-        if (adapter == null) {
-            adapter = CommonFragmentAdapter(
-                manager = childFragmentManager,
-                behavior = BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
-            )
-            viewDataBinding.viewPager.adapter = adapter
-        }
-
         val fragmentList = mutableListOf<Fragment>()
         val titleList = mutableListOf<String>()
         for (index in treeList.indices) {
@@ -97,10 +94,13 @@ class ProjectFragment : BaseHomeFragment<FragmentProjectBinding>() {
             titleList.add(systemTreeInfo.name.replace("&amp;", "&"))
         }
 
-        adapter?.run {
-            setFragmentList(fragmentList)
-            setTitleList(titleList)
-        }
+        adapter = CommonFragmentAdapter(
+            titleList = titleList,
+            fragmentList = fragmentList,
+            manager = childFragmentManager,
+            behavior = BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+        )
+        viewDataBinding.viewPager.adapter = adapter
     }
 
     private fun findFragmentByPos(pos: Int): Fragment? {

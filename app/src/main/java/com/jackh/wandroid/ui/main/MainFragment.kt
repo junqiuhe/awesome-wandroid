@@ -39,14 +39,20 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         outState.putInt(PARAMS_POS, mCurrentPos)
     }
 
-    override fun initData(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        initFragments(savedInstanceState)
+    }
+
+    private fun initFragments(savedInstanceState: Bundle?) {
         for (position: Int in 0..3) {
             val fragment: BaseHomeFragment<*> = getFragmentByPos(position)
             mFragments.add(fragment)
             mNavItems.add(BottomNavItem(fragment.getNavIconResId(), fragment.getNavTitleResId()))
         }
 
-        val currentPos: Int = savedInstanceState?.getInt(PARAMS_POS, 0) ?: 0
+        mCurrentPos = savedInstanceState?.getInt(PARAMS_POS, 0) ?: 0
         if (savedInstanceState == null) {
             val ts: FragmentTransaction = childFragmentManager.beginTransaction()
             for (pos: Int in 0 until mFragments.size) {
@@ -54,9 +60,11 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
             }
             ts.commit()
         }
+    }
 
+    override fun initData(savedInstanceState: Bundle?) {
         nav_layout.addItems(mNavItems)
-        nav_layout.setCurrentIndex(currentPos)
+        nav_layout.setCurrentIndex(mCurrentPos)
         nav_layout.setOnBottomNavListener { view, position ->
             if (position == mCurrentPos) {
                 return@setOnBottomNavListener
@@ -64,7 +72,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
             showFragment(position)
         }
 
-        showFragment(currentPos)
+        showFragment(mCurrentPos)
     }
 
     private fun showFragment(position: Int) {

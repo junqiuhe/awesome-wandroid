@@ -3,13 +3,11 @@ package com.jackh.wandroid.viewmodel
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.jackh.wandroid.repository.HomeRepository
-import com.jackh.wandroid.repository.ProjectRepository
-import com.jackh.wandroid.repository.UserRepository
-import com.jackh.wandroid.repository.WxPublishNumRepository
+import com.jackh.wandroid.repository.*
 import com.jackh.wandroid.viewmodel.account.LoginViewModel
 import com.jackh.wandroid.viewmodel.account.RegisterViewModel
 import com.jackh.wandroid.viewmodel.main.*
+import com.jackh.wandroid.viewmodel.search.SearchViewModel
 
 /**
  * Project Name：awesome-wandroid
@@ -61,6 +59,11 @@ class CustomViewModelFactory(
             WxPublishNumViewModel::class.java.isAssignableFrom(clazz) ->{
                 clazz.getConstructor(WxPublishNumRepository::class.java)
                     .newInstance(WxPublishNumRepository.getInstance())
+            }
+
+            SearchViewModel::class.java.isAssignableFrom(clazz) ->{
+                clazz.getConstructor(SearchRepository::class.java)
+                    .newInstance(SearchRepository.getInstance())
             }
 
             else -> throw IllegalArgumentException("CustomViewModelFactory create method illegal argument")

@@ -7,6 +7,9 @@
     <string name="title_mine">我</string>
 
     <string name="search_hint_text">帮你找到感兴趣的内容</string>
+    <string name="search_des_text">输入标题或描述中的关键词找到更多内容</string>
+    <string name="cancel_text">取消</string>
+    <string name="hot_search_text">- 热门搜索词 -</string>
 
     <string name="empty_text">没有您想要的内容哦!!!</string>
     <string name="network_error">网络连接异常\n请检查您的Wi-Fi和手机网络是否正常</string>

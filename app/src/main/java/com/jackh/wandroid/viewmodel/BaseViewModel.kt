@@ -37,14 +37,9 @@ open class BaseViewModel<DATA> : ViewModel() {
 
         isRefresh: Boolean = true,
 
-        loading: (Boolean) -> Unit = { refresh ->
-            _loadIndicator.value = LoadIndicator(isLoading = true, isRefresh = refresh)
-        },
+        loading: ((Boolean) -> Unit)? = null,
 
-        failure: (Boolean, Throwable) -> Unit = { refresh, error ->
-            _loadIndicator.value = LoadIndicator(isLoading = false, isRefresh = refresh)
-            _error.value = error
-        },
+        failure: ((Boolean, Throwable) -> Unit)? = null,
 
         success: ((T?) -> Unit)? = null
 
@@ -52,10 +47,14 @@ open class BaseViewModel<DATA> : ViewModel() {
         return Consumer { viewState ->
             when (viewState) {
                 is ViewState.Loading -> {
-                    loading.invoke(isRefresh)
+                    _loadIndicator.value = LoadIndicator(isLoading = true, isRefresh = isRefresh)
+                    loading?.invoke(isRefresh)
                 }
                 is ViewState.Failure -> {
-                    failure.invoke(isRefresh, viewState.error)
+                    _loadIndicator.value = LoadIndicator(isLoading = false, isRefresh = isRefresh)
+                    _error.value = viewState.error
+
+                    failure?.invoke(isRefresh, viewState.error)
                 }
                 is ViewState.Success -> {
                     _loadIndicator.value = LoadIndicator(isLoading = false, isRefresh = isRefresh)

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="com.jackh.wandroid.viewmodel.search.SearchViewModel"/>
+
+        <variable
+            name="viewModel"
+            type="SearchViewModel" />
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp"
+            android:background="@android:color/white">
+
+            <EditText
+                android:id="@+id/search_et"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:background="@drawable/round_bg_15dp"
+                android:drawableLeft="@drawable/search_icon"
+                android:drawableStart="@drawable/search_icon"
+                android:drawablePadding="8dp"
+                android:hint="@string/search_hint_text"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/color_aaa"
+                android:gravity="start|center_vertical"
+                android:textSize="14sp"
+                android:inputType="text"
+                android:maxLines="1"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:text="@={viewModel.key}"/>
+
+            <TextView
+                android:id="@+id/cancel_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cancel_text"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:background="?attr/selectableItemBackground"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/colorWindowBg"/>
+
+        <com.jackh.wandroid.widget.InterceptFragment
+            android:id="@+id/search_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+</layout>

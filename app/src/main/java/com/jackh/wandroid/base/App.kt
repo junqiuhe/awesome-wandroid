@@ -3,6 +3,7 @@ package com.jackh.wandroid.base
 import android.app.Application
 import android.content.Context
 import com.jackh.wandroid.repository.AccountManager
+import com.jackh.wandroid.repository.SearchRepository
 
 /**
  * Project Name：awesome-wandroid
@@ -18,13 +19,15 @@ class App : Application() {
         mApplication = this
 
         AccountManager.getInstance().init()
+
+        SearchRepository.getInstance().preloadHotSearchInfo()
     }
 
-    companion object{
+    companion object {
 
         private lateinit var mApplication: App
 
-        fun getContext(): Context{
+        fun getContext(): Context {
             return mApplication
         }
     }

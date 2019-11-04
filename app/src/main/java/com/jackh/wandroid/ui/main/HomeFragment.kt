@@ -3,6 +3,7 @@ package com.jackh.wandroid.ui.main
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.PagerAdapter
 import com.jackh.wandroid.R
 import com.jackh.wandroid.adapter.CommonFragmentAdapter
@@ -26,6 +27,10 @@ class HomeFragment : BaseHomeFragment<FragmentHomeBinding>() {
         viewDataBinding.homeTab.setupWithViewPager(viewDataBinding.viewPager)
 
         viewDataBinding.viewPager.adapter = genAdapter()
+
+        viewDataBinding.searchBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_searchFragment)
+        }
     }
 
     private fun genAdapter(): PagerAdapter {
