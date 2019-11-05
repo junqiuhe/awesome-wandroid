@@ -58,7 +58,7 @@ class WxPublishNumRepository private constructor() {
     fun getWxArticleList(
         id: Int,
         currentPage: Int,
-        key: String?
+        key: String? = null
     ): Observable<ViewState<PageList<ArticleInfo>>> {
         return getWandroidService().getWxArticleById(id, currentPage, key)
             .map(HttpResultFunc(checkResultNull = false))

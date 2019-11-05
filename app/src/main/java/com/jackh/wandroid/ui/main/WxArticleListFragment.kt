@@ -30,7 +30,6 @@ class WxArticleListFragment : BaseFragment<CommonRvLayoutBinding>(){
     private lateinit var listDataUIProxy: ListDataUIProxy<ArticleInfo>
 
     private var wxNumberId: Int = -1
-    private val key: String? = null
 
     override fun getLayoutId(): Int = R.layout.layout_common_recycler_view
 
@@ -40,7 +39,7 @@ class WxArticleListFragment : BaseFragment<CommonRvLayoutBinding>(){
         savedInstanceState: Bundle?
     ): View? {
         listDataUIProxy = ListDataUIProxy(context!!) { isRefresh ->
-            viewModel.loadData(isRefresh, wxNumberId, key)
+            viewModel.loadData(isRefresh, wxNumberId)
         }
         viewDataBinding = listDataUIProxy.onCreateView(inflater, container)
 
@@ -60,7 +59,7 @@ class WxArticleListFragment : BaseFragment<CommonRvLayoutBinding>(){
     override fun onResume() {
         super.onResume()
         if (isFirstLoad) {
-            viewModel.loadData(true, wxNumberId, key)
+            viewModel.loadData(true, wxNumberId)
         }
         isFirstLoad = false
     }

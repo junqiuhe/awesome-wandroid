@@ -6,10 +6,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager.widget.ViewPager
 import com.jackh.wandroid.R
 import com.jackh.wandroid.adapter.CommonFragmentAdapter
 import com.jackh.wandroid.databinding.FragmentWxPublishNumBinding
 import com.jackh.wandroid.model.SystemTreeInfo
+import com.jackh.wandroid.ui.search.common.SearchFragment
+import com.jackh.wandroid.ui.search.wxarticle_history.SearchWxArticleHistoryFragment
 import com.jackh.wandroid.utils.getViewModel
 import com.jackh.wandroid.viewmodel.main.WxPublishNumViewModel
 
@@ -32,9 +35,15 @@ class WXPublishNumberFragment : BaseHomeFragment<FragmentWxPublishNumBinding>() 
     override fun getLayoutId(): Int = R.layout.fragment_wx_publish_num
 
     override fun initData(savedInstanceState: Bundle?) {
-
         viewDataBinding.searchBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFragment_to_searchFragment)
+            val params = Bundle()
+            _treeList?.run {
+                params.putParcelable(
+                    SearchWxArticleHistoryFragment.PARAMS_SEARCH_WX_NUMBER,
+                    get(viewDataBinding.viewPager.currentItem)
+                )
+            }
+            findNavController().navigate(R.id.action_mainFragment_to_searchWxarticleHistory, params)
         }
 
         viewDataBinding.wxNumberTab.setupWithViewPager(viewDataBinding.viewPager)
@@ -76,7 +85,11 @@ class WXPublishNumberFragment : BaseHomeFragment<FragmentWxPublishNumBinding>() 
 
     private lateinit var adapter: CommonFragmentAdapter
 
+    private var _treeList: List<SystemTreeInfo>? = null
+
     private fun attachFragment(treeList: List<SystemTreeInfo>) {
+        _treeList = treeList
+
         val fragmentList = mutableListOf<Fragment>()
         val titleList = mutableListOf<String>()
         for (index in treeList.indices) {
@@ -97,6 +110,27 @@ class WXPublishNumberFragment : BaseHomeFragment<FragmentWxPublishNumBinding>() 
             behavior = FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
         )
         viewDataBinding.viewPager.adapter = adapter
+        viewDataBinding.viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {
+            }
+
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+            }
+
+            override fun onPageSelected(position: Int) {
+                updateSearchHint(position)
+            }
+        })
+        updateSearchHint(viewDataBinding.viewPager.currentItem)
+    }
+
+    private fun updateSearchHint(position: Int) {
+        viewDataBinding.searchBtn.hint =
+            getString(R.string.search_wx_number_hint, _treeList?.get(position)?.name)
     }
 
     private fun findFragmentByPos(pos: Int): Fragment? {

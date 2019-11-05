@@ -4,28 +4,20 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.jackh.wandroid.R
 import com.jackh.wandroid.databinding.FragmentSearchBinding
-import com.jackh.wandroid.ui.BaseFragment
-import com.jackh.wandroid.utils.getViewModel
 import com.jackh.wandroid.utils.hideSoftKeyboard
 import com.jackh.wandroid.utils.showSoftKeyboard
-import com.jackh.wandroid.viewmodel.search.SearchViewModel
+import com.jackh.wandroid.viewmodel.search.BaseSearchViewModel
 
 /**
  * Project Name：awesome-wandroid
- * Created by hejunqiu on 2019/11/4 9:26
+ * Created by hejunqiu on 2019/11/5 10:01
  * Description:
  */
-
-class SearchFragment : BaseFragment<FragmentSearchBinding>() {
-
-    private val viewModel: SearchViewModel by lazy {
-        getViewModel<SearchViewModel>(activity!!)
-    }
+abstract class BaseSearchFragment<VM: BaseSearchViewModel<*>> : AbsSearchFragment<FragmentSearchBinding, VM>() {
 
     override fun getLayoutId(): Int = R.layout.fragment_search
 
@@ -39,6 +31,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 
         viewModel.key.observe(this, Observer {
             attachFragment(it)
+
             viewModel.search()
         })
 
@@ -55,24 +48,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         attachFragment()
     }
 
-    private fun attachFragment(searchContent: CharSequence? = null) {
-        val fragment: Fragment = if (searchContent.isNullOrEmpty()) {
-            childFragmentManager.findFragmentByTag(SEARCH_DEFAULT_TAG)
-                ?: SearchDefaultFragment()
-        } else {
-            childFragmentManager.findFragmentByTag(SEARCH_RESULT_TAG)
-                ?: SearchResultFragment()
-        }
-        if (!fragment.isAdded) {
-            val ts = childFragmentManager.beginTransaction()
-            if (searchContent.isNullOrEmpty()) {
-                ts.replace(R.id.search_container, fragment, SEARCH_DEFAULT_TAG)
-            } else {
-                ts.replace(R.id.search_container, fragment, SEARCH_RESULT_TAG)
-            }
-            ts.commitAllowingStateLoss()
-        }
-    }
+    abstract fun attachFragment(searchContent: CharSequence? = null)
 
     override fun onResume() {
         super.onResume()
@@ -80,9 +56,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     }
 
     companion object {
+        const val SEARCH_DEFAULT_TAG = "search_default_tag"
 
-        private const val SEARCH_DEFAULT_TAG = "search_default_tag"
-
-        private const val SEARCH_RESULT_TAG = "search_result_tag"
+        const val SEARCH_RESULT_TAG = "search_result_tag"
     }
 }

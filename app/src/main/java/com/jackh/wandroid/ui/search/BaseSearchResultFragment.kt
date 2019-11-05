@@ -6,21 +6,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.jackh.wandroid.R
 import com.jackh.wandroid.adapter.HomeAdapter
 import com.jackh.wandroid.databinding.FragmentSearchResultBinding
-import com.jackh.wandroid.ui.BaseFragment
-import com.jackh.wandroid.utils.getViewModel
-import com.jackh.wandroid.viewmodel.search.SearchViewModel
+import com.jackh.wandroid.model.ArticleInfo
+import com.jackh.wandroid.viewmodel.search.BaseSearchViewModel
 
 /**
  * Project Name：awesome-wandroid
- * Created by hejunqiu on 2019/11/4 14:07
+ * Created by hejunqiu on 2019/11/5 10:35
  * Description:
  */
 
-class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>() {
-
-    private val viewModel: SearchViewModel by lazy {
-        getViewModel<SearchViewModel>(activity!!)
-    }
+abstract class BaseSearchResultFragment<DATA : ArticleInfo,
+        VM : BaseSearchViewModel<List<DATA>>> :
+    AbsSearchFragment<FragmentSearchResultBinding, VM>() {
 
     private lateinit var mAdapter: HomeAdapter
 

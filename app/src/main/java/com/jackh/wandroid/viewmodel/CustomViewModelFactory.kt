@@ -8,6 +8,7 @@ import com.jackh.wandroid.viewmodel.account.LoginViewModel
 import com.jackh.wandroid.viewmodel.account.RegisterViewModel
 import com.jackh.wandroid.viewmodel.main.*
 import com.jackh.wandroid.viewmodel.search.SearchViewModel
+import com.jackh.wandroid.viewmodel.search.SearchWxArticleHistoryViewModel
 
 /**
  * Project Name：awesome-wandroid
@@ -51,19 +52,30 @@ class CustomViewModelFactory(
                     .newInstance(ProjectRepository.getInstance())
             }
 
-            WxArticleListViewModel::class.java.isAssignableFrom(clazz) ->{
+            WxArticleListViewModel::class.java.isAssignableFrom(clazz) -> {
                 clazz.getConstructor(WxPublishNumRepository::class.java)
                     .newInstance(WxPublishNumRepository.getInstance())
             }
 
-            WxPublishNumViewModel::class.java.isAssignableFrom(clazz) ->{
+            WxPublishNumViewModel::class.java.isAssignableFrom(clazz) -> {
                 clazz.getConstructor(WxPublishNumRepository::class.java)
                     .newInstance(WxPublishNumRepository.getInstance())
             }
 
-            SearchViewModel::class.java.isAssignableFrom(clazz) ->{
+            SearchViewModel::class.java.isAssignableFrom(clazz) -> {
                 clazz.getConstructor(SearchRepository::class.java)
                     .newInstance(SearchRepository.getInstance())
+            }
+
+            SearchWxArticleHistoryViewModel::class.java.isAssignableFrom(clazz) -> {
+                clazz.getConstructor(
+                    SearchRepository::class.java,
+                    WxPublishNumRepository::class.java
+                )
+                    .newInstance(
+                        SearchRepository.getInstance(),
+                        WxPublishNumRepository.getInstance()
+                    )
             }
 
             else -> throw IllegalArgumentException("CustomViewModelFactory create method illegal argument")

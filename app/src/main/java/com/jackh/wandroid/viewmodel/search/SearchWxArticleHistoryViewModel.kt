@@ -3,36 +3,45 @@ package com.jackh.wandroid.viewmodel.search
 import com.jackh.wandroid.base.model.PageInfo
 import com.jackh.wandroid.model.ArticleInfo
 import com.jackh.wandroid.repository.SearchRepository
+import com.jackh.wandroid.repository.WxPublishNumRepository
 import io.reactivex.disposables.Disposable
 
 /**
  * Project Name：awesome-wandroid
- * Created by hejunqiu on 2019/11/4 11:30
+ * Created by hejunqiu on 2019/11/5 10:26
  * Description:
  */
 
-class SearchViewModel(
+class SearchWxArticleHistoryViewModel(
 
-    repository: SearchRepository
+    searchRepository: SearchRepository,
 
-) : BaseSearchViewModel<List<ArticleInfo>>(repository) {
+    private val wxPublishNumRepository: WxPublishNumRepository
+
+) : BaseSearchViewModel<List<ArticleInfo>>(searchRepository){
 
     private val dataList: MutableList<ArticleInfo> = mutableListOf()
 
-    private val pageInfo: PageInfo = PageInfo(currentPage = 0)
+    private var pageInfo: PageInfo = PageInfo(currentPage = 1)
 
     private var mDisposable: Disposable? = null
 
+    private var _id: Int? = null
+
+    fun setId(id: Int){
+        _id = id
+    }
+
     override fun search() {
-        if (key.value.isNullOrEmpty()) {
+        if (key.value.isNullOrEmpty() || _id == null) {
             return
         }
 
-        pageInfo.resetData()
+        pageInfo = PageInfo(currentPage = 1)
 
         mDisposable?.dispose()
 
-        mDisposable = repository.search(pageInfo.currentPage, key = key.value!!, isRefresh = true)
+        mDisposable = wxPublishNumRepository.getWxArticleList(_id!!, pageInfo.currentPage, key = key.value!!)
             .subscribe(doOnNext(failure = { b: Boolean, throwable: Throwable ->
                 mDisposable = null
 
@@ -56,10 +65,11 @@ class SearchViewModel(
     }
 
     override fun loadMore() {
-        if (key.value.isNullOrEmpty()) {
+        if (key.value.isNullOrEmpty() || _id == null) {
             return
         }
-        mDisposable = repository.search(pageInfo.currentPage, key = key.value!!, isRefresh = false)
+
+        mDisposable = wxPublishNumRepository.getWxArticleList(_id!!, pageInfo.currentPage, key = key.value!!)
             .subscribe(doOnNext(
                 isRefresh = false,
                 failure = { b: Boolean, throwable: Throwable ->

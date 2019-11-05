@@ -42,14 +42,14 @@ class WxArticleListViewModel(
     }
 
     @SuppressLint("CheckResult")
-    fun loadData(refresh: Boolean, id: Int, key: String? = null) {
+    fun loadData(refresh: Boolean, id: Int) {
         if (isLoading()) {
             return
         }
         if (refresh) {
             pageInfo = PageInfo(currentPage = 1)
         }
-        repository.getWxArticleList(id, pageInfo.currentPage, key)
+        repository.getWxArticleList(id, pageInfo.currentPage)
             .subscribe(
                 doOnNext(
                     isRefresh = refresh,

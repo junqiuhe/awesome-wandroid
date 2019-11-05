@@ -3,11 +3,11 @@
 
     <data>
 
-        <import type="com.jackh.wandroid.viewmodel.search.SearchViewModel"/>
+        <import type="com.jackh.wandroid.viewmodel.search.BaseSearchViewModel"/>
 
         <variable
             name="viewModel"
-            type="SearchViewModel" />
+            type="BaseSearchViewModel" />
 
     </data>
 

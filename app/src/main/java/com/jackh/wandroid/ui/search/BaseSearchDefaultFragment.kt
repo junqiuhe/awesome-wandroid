@@ -2,7 +2,6 @@ package com.jackh.wandroid.ui.search
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
@@ -10,24 +9,16 @@ import androidx.lifecycle.Observer
 import com.jackh.wandroid.R
 import com.jackh.wandroid.databinding.FragmentSearchDefaultBinding
 import com.jackh.wandroid.model.HotSearchInfo
-import com.jackh.wandroid.ui.BaseFragment
-import com.jackh.wandroid.utils.getViewModel
-import com.jackh.wandroid.viewmodel.search.SearchViewModel
+import com.jackh.wandroid.viewmodel.search.BaseSearchViewModel
 import com.zhy.view.flowlayout.FlowLayout
 import com.zhy.view.flowlayout.TagAdapter
-import com.zhy.view.flowlayout.TagFlowLayout
 
 /**
  * Project Name：awesome-wandroid
- * Created by hejunqiu on 2019/11/4 10:11
+ * Created by hejunqiu on 2019/11/5 10:35
  * Description:
  */
-
-class SearchDefaultFragment : BaseFragment<FragmentSearchDefaultBinding>() {
-
-    private val viewModel: SearchViewModel by lazy {
-        getViewModel<SearchViewModel>(activity!!)
-    }
+abstract class BaseSearchDefaultFragment<VM: BaseSearchViewModel<*>> : AbsSearchFragment<FragmentSearchDefaultBinding, VM>() {
 
     private lateinit var hotSearchAdapter: HotSearchAdapter
 

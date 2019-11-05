@@ -29,6 +29,7 @@
                 android:textColor="@color/gray"
                 android:textColorHint="@color/color_aaa"
                 android:gravity="center_vertical"
+                android:textSize="14sp"
                 app:layout_scrollFlags="scroll|enterAlways"/>
 
             <com.google.android.material.tabs.TabLayout

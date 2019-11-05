@@ -19,6 +19,10 @@
             android:id="@+id/action_mainFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
 
+        <action
+            android:id="@+id/action_mainFragment_to_searchWxarticleHistory"
+            app:destination="@id/searchWxarticleHistoryFragment" />
+
     </fragment>
 
     <activity
@@ -28,8 +32,14 @@
 
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.jackh.wandroid.ui.search.SearchFragment"
+        android:name="com.jackh.wandroid.ui.search.common.SearchFragment"
         android:label="SearchFragment"
+        tools:layout="@layout/fragment_search"/>
+
+    <fragment
+        android:id="@+id/searchWxarticleHistoryFragment"
+        android:name="com.jackh.wandroid.ui.search.wxarticle_history.SearchWxArticleHistoryFragment"
+        android:label="SearchWxArticleHistoryFragment"
         tools:layout="@layout/fragment_search"/>
 
 </navigation>
