@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/design_48dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/design_16dp"
+            android:paddingRight="@dimen/design_16dp">
+
+            <ImageView
+                android:id="@+id/item_src_iv"
+                android:layout_width="@dimen/design_16dp"
+                android:layout_height="@dimen/design_16dp"
+                tools:src="@drawable/collection_icon"/>
+
+            <TextView
+                android:id="@+id/item_content_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/design_text_14sp"
+                android:textColor="@color/color_333"
+                android:layout_marginLeft="@dimen/design_16dp"
+                tools:text="@string/collection_text"/>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/item_arrow_iv"
+                android:layout_width="@dimen/design_16dp"
+                android:layout_height="@dimen/design_16dp"
+                android:src="@drawable/arrow_right" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider_view"
+            style="@style/Divider.Horizontal"
+            android:layout_marginLeft="@dimen/design_48dp"
+            android:layout_marginStart="@dimen/design_48dp"/>
+
+    </LinearLayout>
+
+</layout>

@@ -113,4 +113,11 @@ interface WanAndroidService {
         @Path(value = "currentPage") currentPage: Int,
         @Field(value = "k") key: String = ""
     ): Observable<DataResult<PageList<ArticleInfo>>>
+
+    /**
+     * 获取个人积分信息
+     */
+    @GET(value = "lg/coin/userinfo/json")
+    fun getCoinInfo(): Observable<DataResult<CoinInfo>>
+
 }

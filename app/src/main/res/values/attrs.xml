@@ -1,12 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="SquareImageView">
-        <attr name="baseWidth" format="boolean"/>
+        <attr name="baseWidth" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="CustomStateView">
-        <attr name="emptyText" format="reference|string"/>
-        <attr name="errorText" format="reference|string"/>
-        <attr name="errorImageResId" format="reference"/>
+        <attr name="emptyText" format="reference|string" />
+        <attr name="errorText" format="reference|string" />
+        <attr name="errorImageResId" format="reference" />
     </declare-styleable>
+
+    <declare-styleable name="LabelTextView">
+        <attr name="label_background_color" format="color" />
+        <attr name="label_corner" format="dimension" />
+        <attr name="label_stroke_width" format="dimension" />
+        <attr name="label_has_stroke" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="LabelItemView">
+        <attr name="label_src" format="reference" />
+        <attr name="label_text" format="reference|string" />
+        <attr name="label_has_divider" format="boolean" />
+        <attr name="label_has_arrow" format="boolean" />
+    </declare-styleable>
+
 </resources>

@@ -5,6 +5,7 @@ import android.text.TextUtils
 import androidx.databinding.Bindable
 import com.jackh.wandroid.BR
 import com.jackh.wandroid.model.UserInfo
+import com.jackh.wandroid.repository.AccountManager
 import com.jackh.wandroid.repository.UserRepository
 import com.jackh.wandroid.viewmodel.ObservableViewModel
 
@@ -37,7 +38,8 @@ class LoginViewModel(
             return
         }
         userRepository.login(userName!!, password!!)
-            .subscribe(doOnNext{
+            .subscribe(doOnNext {
+                AccountManager.getInstance().saveUserInfo(it!!)
                 _data.value = it
             })
     }

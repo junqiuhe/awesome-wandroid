@@ -49,7 +49,7 @@ class SearchWxArticleHistoryViewModel(
                 mDisposable = null
 
                 pageList?.run {
-                    pageInfo.currentPage = curPage
+                    pageInfo.currentPage = curPage + 1
                     pageInfo.totalPage = pageCount
 
                     dataList.clear()
@@ -59,7 +59,7 @@ class SearchWxArticleHistoryViewModel(
 
                     _data.value = dataList
 
-                    _hasMoreData.value = curPage < pageCount
+                    _hasMoreData.value = curPage <= pageCount
                 }
             }))
     }
@@ -79,7 +79,7 @@ class SearchWxArticleHistoryViewModel(
                     mDisposable = null
 
                     pageList?.run {
-                        pageInfo.currentPage = curPage
+                        pageInfo.currentPage = curPage + 1
                         pageInfo.totalPage = pageCount
 
                         datas?.run {
@@ -87,7 +87,7 @@ class SearchWxArticleHistoryViewModel(
                         }
                         _data.value = dataList
 
-                        _hasMoreData.value = curPage < pageCount
+                        _hasMoreData.value = curPage <= pageCount
                     }
                 })
             )

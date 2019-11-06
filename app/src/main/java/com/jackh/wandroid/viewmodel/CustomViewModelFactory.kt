@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.jackh.wandroid.repository.*
 import com.jackh.wandroid.viewmodel.account.LoginViewModel
+import com.jackh.wandroid.viewmodel.account.MineViewModel
 import com.jackh.wandroid.viewmodel.account.RegisterViewModel
 import com.jackh.wandroid.viewmodel.main.*
 import com.jackh.wandroid.viewmodel.search.SearchViewModel
@@ -24,12 +25,12 @@ class CustomViewModelFactory(
 
             LoginViewModel::class.java.isAssignableFrom(clazz) -> {
                 clazz.getConstructor(UserRepository::class.java)
-                    .newInstance(UserRepository.getInstance(context))
+                    .newInstance(UserRepository.getInstance())
             }
 
             RegisterViewModel::class.java.isAssignableFrom(clazz) -> {
                 clazz.getConstructor(UserRepository::class.java)
-                    .newInstance(UserRepository.getInstance(context))
+                    .newInstance(UserRepository.getInstance())
             }
 
             LatestArticleViewModel::class.java.isAssignableFrom(clazz) -> {
@@ -76,6 +77,15 @@ class CustomViewModelFactory(
                         SearchRepository.getInstance(),
                         WxPublishNumRepository.getInstance()
                     )
+            }
+
+            MineViewModel::class.java.isAssignableFrom(clazz) -> {
+                clazz.getConstructor(UserRepository::class.java)
+                    .newInstance(UserRepository.getInstance())
+            }
+
+            SettingViewModel::class.java.isAssignableFrom(clazz) -> {
+                clazz.newInstance()
             }
 
             else -> throw IllegalArgumentException("CustomViewModelFactory create method illegal argument")

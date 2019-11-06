@@ -32,10 +32,10 @@ class HttpResultFunc<T>(private val checkResultNull: Boolean = true) : Function<
         if (result.errorCode != 0) {
             throw ApiException("${result.errorCode}", result.errorMsg)
         }
-        if(checkResultNull && result.data == null){
+        if (checkResultNull && result.data == null) {
             throw ApiException("1000", "未知错误")
         }
-        return result.data
+        return result.data ?: "" as T
     }
 }
 

@@ -17,4 +17,14 @@
 
     <style name="SplashTheme" parent="NoActionBar"/>
 
+    <!--Divider-->
+    <style name="Divider">
+        <item name="android:background">@color/design_colorDivider</item>
+    </style>
+
+    <style name="Divider.Horizontal" parent="Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+    </style>
+
 </resources>

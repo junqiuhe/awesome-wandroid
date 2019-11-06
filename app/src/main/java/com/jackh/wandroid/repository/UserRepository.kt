@@ -1,8 +1,8 @@
 package com.jackh.wandroid.repository
 
-import android.content.Context
 import com.jackh.wandroid.base.model.DataResult
 import com.jackh.wandroid.base.model.ViewState
+import com.jackh.wandroid.model.CoinInfo
 import com.jackh.wandroid.model.UserInfo
 import com.jackh.wandroid.network.getWandroidService
 import com.jackh.wandroid.utils.HttpResultFunc
@@ -15,9 +15,7 @@ import io.reactivex.Observable
  * Description:
  */
 
-class UserRepository private constructor(
-    private val context: Context
-) {
+class UserRepository private constructor() {
     /**
      * 登录
      */
@@ -39,22 +37,29 @@ class UserRepository private constructor(
     /**
      * 退出登录
      */
-    fun logout(): Observable<DataResult<String>> {
+    fun logout(): Observable<ViewState<String>> {
         return getWandroidService().logout()
+            .map(HttpResultFunc(checkResultNull = false))
+            .compose(loadDataTransformer())
     }
 
-    fun saveUserInfo(userInfo: UserInfo) {
-        AccountManager.getInstance().saveUserInfo(userInfo)
+    /**
+     * 获取个人积分信息
+     */
+    fun getCoinInfo(): Observable<ViewState<CoinInfo>> {
+        return getWandroidService().getCoinInfo()
+            .map(HttpResultFunc())
+            .compose(loadDataTransformer())
     }
 
     companion object {
 
         private var userRepository: UserRepository? = null
 
-        fun getInstance(context: Context): UserRepository {
+        fun getInstance(): UserRepository {
             return synchronized(UserRepository::class.java) {
                 if (userRepository == null) {
-                    userRepository = UserRepository(context.applicationContext)
+                    userRepository = UserRepository()
                 }
                 userRepository!!
             }

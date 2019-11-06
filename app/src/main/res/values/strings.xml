@@ -6,6 +6,21 @@
     <string name="title_wx_publish_num">公众号</string>
     <string name="title_mine">我</string>
 
+    <string name="mine_title">个人中心</string>
+    <string name="welcome_text">欢迎来到玩Android</string>
+    <string name="wandroid_des">玩Android是一个每日推荐20~30篇Android优质文章的站点,提供Android常用工具和常用网站,并以知识体系的形式展现所有的文章分类。</string>
+    <string name="login_or_register_text">登录/注册</string>
+    <string name="collection_text">收藏列表</string>
+    <string name="read_text">阅读列表</string>
+    <string name="rank_text">排行榜</string>
+    <string name="integral_text">积分规则</string>
+    <string name="setting_text">设置</string>
+    <string name="logout_text">退出</string>
+
+    <string name="user_level">等级：%1$s</string>
+    <string name="user_coin">积分：%1$s</string>
+    <string name="user_rank">排名：%1$s</string>
+
     <string name="search_hint_text">帮你找到感兴趣的内容</string>
     <string name="search_des_text">输入标题或描述中的关键词找到更多内容</string>
     <string name="cancel_text">取消</string>

@@ -6,6 +6,8 @@
 
     <color name="colorWindowBg">#F0F0F0</color>
 
+    <color name="design_colorDivider">#ededed</color>
+
     <color name="color_333">#333333</color>
     <color name="color_666">#666666</color>
     <color name="color_999">#999999</color>
@@ -15,5 +17,7 @@
 
     <color name="color_ddd">#DDDDDD</color>
     <color name="color_aaa">#AAAAAA</color>
+
+    <color name="color_282828">#282828</color>
 
 </resources>

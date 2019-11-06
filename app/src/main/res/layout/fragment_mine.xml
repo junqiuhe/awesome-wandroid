@@ -1,16 +1,226 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/user_entrance"
+        <LinearLayout
+            android:id="@+id/user_header_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="用户登录"/>
+            android:background="@android:color/white"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/design_48dp"
+                android:text="@string/mine_title"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="@dimen/design_text_16sp"
+                android:textColor="@color/color_333"/>
+
+            <View
+                style="@style/Divider.Horizontal"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="32dp"
+                android:paddingBottom="32dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:visibility="visible">
+
+                <ImageView
+                    android:id="@+id/user_avatar_iv"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/default_avatar"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/center_line"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.5" />
+
+                <TextView
+                    android:id="@+id/user_name_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/color_333"
+                    android:textSize="@dimen/design_text_16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/center_line"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/user_avatar_iv"
+                    tools:text="Jackson" />
+
+                <LinearLayout
+                    android:id="@+id/user_info_container"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/user_avatar_iv"
+                    app:layout_constraintTop_toBottomOf="@+id/center_line">
+
+                    <com.jackh.wandroid.widget.LabelTextView
+                        android:id="@+id/coin_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="4dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:textColor="@color/color_ddd"
+                        android:text="..."
+                        app:label_background_color="@color/color_282828"
+                        app:label_corner="4dp"
+                        tools:text="积分：231" />
+
+                    <com.jackh.wandroid.widget.LabelTextView
+                        android:id="@+id/level_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginStart="8dp"
+                        android:textSize="12sp"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="4dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:textColor="@color/color_ddd"
+                        android:text="..."
+                        app:label_background_color="@color/color_282828"
+                        app:label_corner="4dp"
+                        tools:text="等级：12" />
+
+                    <com.jackh.wandroid.widget.LabelTextView
+                        android:id="@+id/rank_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginStart="8dp"
+                        android:textSize="12sp"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="4dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:textColor="@color/color_ddd"
+                        android:text="..."
+                        app:label_background_color="@color/color_282828"
+                        app:label_corner="4dp"
+                        tools:text="排名：12" />
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/wandroid_des_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/design_16dp"
+            android:paddingRight="@dimen/design_16dp"
+            android:paddingTop="@dimen/design_32dp"
+            android:paddingBottom="@dimen/design_32dp"
+            android:background="@android:color/white">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:text="@string/welcome_text"
+                android:textColor="@color/color_333"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/design_text_14sp"
+                android:text="@string/wandroid_des"
+                android:lineSpacingExtra="3dp"
+                android:layout_marginTop="@dimen/design_16dp"/>
+
+            <com.jackh.wandroid.widget.LabelTextView
+                android:id="@+id/login_register_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:text="@string/login_or_register_text"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="16dp"
+                app:label_background_color="@color/black"
+                app:label_corner="16dp"/>
+
+        </LinearLayout>
+
+        <com.jackh.wandroid.widget.LabelItemView
+            android:id="@+id/collection_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:layout_marginTop="@dimen/design_10dp"
+            app:label_src="@drawable/collection_icon"
+            app:label_text="@string/collection_text" />
+
+        <com.jackh.wandroid.widget.LabelItemView
+            android:id="@+id/read_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            app:label_src="@drawable/read_icon"
+            app:label_text="@string/read_text" />
+
+        <com.jackh.wandroid.widget.LabelItemView
+            android:id="@+id/rank_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            app:label_src="@drawable/rank_icon"
+            app:label_text="@string/rank_text"
+            app:label_has_divider="false"/>
+
+        <com.jackh.wandroid.widget.LabelItemView
+            android:id="@+id/integral_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:layout_marginTop="@dimen/design_10dp"
+            app:label_src="@drawable/integral_icon"
+            app:label_text="@string/integral_text" />
+
+        <com.jackh.wandroid.widget.LabelItemView
+            android:id="@+id/setting_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            app:label_src="@drawable/setting_icon"
+            app:label_text="@string/setting_text"
+            app:label_has_divider="false"/>
 
     </LinearLayout>
 

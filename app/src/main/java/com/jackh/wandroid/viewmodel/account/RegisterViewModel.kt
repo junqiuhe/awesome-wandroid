@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.text.TextUtils
 import androidx.lifecycle.MutableLiveData
 import com.jackh.wandroid.model.UserInfo
+import com.jackh.wandroid.repository.AccountManager
 import com.jackh.wandroid.repository.UserRepository
 import com.jackh.wandroid.viewmodel.BaseViewModel
 
@@ -38,6 +39,7 @@ class RegisterViewModel(
 
         userRepository.register(userName = userName.value!!, password = password.value!!)
             .subscribe(doOnNext {
+                AccountManager.getInstance().saveUserInfo(it!!)
                 _data.value = it
             })
     }
