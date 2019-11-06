@@ -11,7 +11,6 @@ import com.jackh.wandroid.base.model.ViewState
 import com.jackh.wandroid.model.ArticleInfo
 import com.jackh.wandroid.model.HotSearchInfo
 import com.jackh.wandroid.network.getWandroidService
-import com.jackh.wandroid.utils.HttpResultFunc
 import com.jackh.wandroid.utils.getSharePreferences
 import com.jackh.wandroid.utils.loadDataTransformer
 import com.jackh.wandroid.utils.string
@@ -36,8 +35,7 @@ class SearchRepository private constructor() {
         getLocalHotSearchInfo()
 
         getWandroidService().getHotSearchInfo()
-            .map(HttpResultFunc(checkResultNull = false))
-            .compose(loadDataTransformer()).subscribe { viewState ->
+            .compose(loadDataTransformer(checkResultNull = false)).subscribe { viewState ->
                 when (viewState) {
                     is ViewState.Success -> {
                         saveHotSearchInfo(viewState.data)
@@ -77,17 +75,9 @@ class SearchRepository private constructor() {
         key: String = "",
         isRefresh: Boolean
     ): Observable<ViewState<PageList<ArticleInfo>>> {
-        return if (isRefresh) {
-            getWandroidService()
-                .search(currentPage, key)
-                .map(HttpResultFunc())
-                .compose(loadDataTransformer())
-        } else {
-            getWandroidService()
-                .search(currentPage, key)
-                .map(HttpResultFunc())
-                .compose(loadDataTransformer())
-        }
+        return getWandroidService()
+            .search(currentPage, key)
+            .compose(loadDataTransformer())
     }
 
     companion object {

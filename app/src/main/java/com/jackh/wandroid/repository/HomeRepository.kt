@@ -9,7 +9,10 @@ import com.jackh.wandroid.network.getWandroidService
 import com.jackh.wandroid.utils.HttpResultFunc
 import com.jackh.wandroid.utils.loadDataTransformer
 import io.reactivex.Observable
+import io.reactivex.ObservableTransformer
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Function3
+import io.reactivex.schedulers.Schedulers
 
 /**
  * Project Name：awesome-wandroid
@@ -21,7 +24,6 @@ class HomeRepository private constructor() {
 
     fun getArticleInfoList(currentPage: Int): Observable<ViewState<PageList<ArticleInfo>>> {
         return getWandroidService().getArticleInfoList(currentPage)
-            .map(HttpResultFunc())
             .compose(loadDataTransformer())
     }
 
@@ -29,16 +31,42 @@ class HomeRepository private constructor() {
     fun zipLatestBannerTopInfo(currentPage: Int = 0): Observable<ViewState<ZipLatestBannerTopInfo>> {
         return Observable.zip(
 
-            getWandroidService().getArticleInfoList(currentPage).map(HttpResultFunc()),
+            getWandroidService().getArticleInfoList(currentPage)
+                .map(HttpResultFunc())
+                .map {
+                    (it as ViewState.Success).data!!
+                },
 
-            getWandroidService().getTopArticle().map(HttpResultFunc(false)),
+            getWandroidService().getTopArticle()
+                .map(HttpResultFunc(false))
+                .map {
+                    (it as ViewState.Success).data ?: mutableListOf()
+                },
 
-            getWandroidService().getBannerInfo().map(HttpResultFunc(false)),
+            getWandroidService().getBannerInfo()
+                .map(HttpResultFunc(false))
+                .map {
+                    (it as ViewState.Success).data ?: mutableListOf()
+                },
 
             Function3<PageList<ArticleInfo>, List<ArticleInfo>, List<BannerInfo>, ZipLatestBannerTopInfo> { t1, t2, t3 ->
                 ZipLatestBannerTopInfo(t1, t2, t3)
             }
-        ).compose(loadDataTransformer())
+
+        ).compose(transformer())
+    }
+
+    private fun transformer(): ObservableTransformer<ZipLatestBannerTopInfo, ViewState<ZipLatestBannerTopInfo>> {
+        return ObservableTransformer { upstream ->
+            upstream.map {
+                ViewState.success(it)
+            }.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .startWith(ViewState.loading())
+                .onErrorReturn { error: Throwable ->
+                    ViewState.failure(error)
+                }
+        }
     }
 
     companion object {

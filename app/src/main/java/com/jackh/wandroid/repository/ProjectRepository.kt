@@ -10,7 +10,6 @@ import com.jackh.wandroid.base.model.ViewState
 import com.jackh.wandroid.model.ArticleInfo
 import com.jackh.wandroid.model.SystemTreeInfo
 import com.jackh.wandroid.network.getWandroidService
-import com.jackh.wandroid.utils.HttpResultFunc
 import com.jackh.wandroid.utils.getSharePreferences
 import com.jackh.wandroid.utils.loadDataTransformer
 import com.jackh.wandroid.utils.string
@@ -51,8 +50,7 @@ class ProjectRepository private constructor() {
 
     fun getRemoteProjectTree(): Observable<ViewState<List<SystemTreeInfo>>> {
         return getWandroidService().getProjectTree()
-            .map(HttpResultFunc(checkResultNull = false))
-            .compose(loadDataTransformer())
+            .compose(loadDataTransformer(checkResultNull = false))
     }
 
 
@@ -61,15 +59,11 @@ class ProjectRepository private constructor() {
         id: Int
     ): Observable<ViewState<PageList<ArticleInfo>>> {
         return getWandroidService().getProjectListById(currentPage, id)
-            .map(HttpResultFunc())
-            .compose(
-                loadDataTransformer()
-            )
+            .compose(loadDataTransformer())
     }
 
     fun getLatestProjectList(currentPage: Int): Observable<ViewState<PageList<ArticleInfo>>> {
         return getWandroidService().getLatestProject(currentPage)
-            .map(HttpResultFunc())
             .compose(loadDataTransformer())
     }
 

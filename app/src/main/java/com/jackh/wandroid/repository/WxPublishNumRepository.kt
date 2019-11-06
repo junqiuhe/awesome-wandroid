@@ -10,7 +10,6 @@ import com.jackh.wandroid.base.model.ViewState
 import com.jackh.wandroid.model.ArticleInfo
 import com.jackh.wandroid.model.SystemTreeInfo
 import com.jackh.wandroid.network.getWandroidService
-import com.jackh.wandroid.utils.HttpResultFunc
 import com.jackh.wandroid.utils.getSharePreferences
 import com.jackh.wandroid.utils.loadDataTransformer
 import com.jackh.wandroid.utils.string
@@ -51,8 +50,7 @@ class WxPublishNumRepository private constructor() {
 
     fun getRemoteWxNumberList(): Observable<ViewState<List<SystemTreeInfo>>> {
         return getWandroidService().getWxNumberList()
-            .map(HttpResultFunc(checkResultNull = false))
-            .compose(loadDataTransformer())
+            .compose(loadDataTransformer(checkResultNull = false))
     }
 
     fun getWxArticleList(
@@ -61,8 +59,7 @@ class WxPublishNumRepository private constructor() {
         key: String? = null
     ): Observable<ViewState<PageList<ArticleInfo>>> {
         return getWandroidService().getWxArticleById(id, currentPage, key)
-            .map(HttpResultFunc(checkResultNull = false))
-            .compose(loadDataTransformer())
+            .compose(loadDataTransformer(checkResultNull = false))
     }
 
     companion object {

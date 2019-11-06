@@ -1,11 +1,9 @@
 package com.jackh.wandroid.repository
 
-import com.jackh.wandroid.base.model.DataResult
 import com.jackh.wandroid.base.model.ViewState
 import com.jackh.wandroid.model.CoinInfo
 import com.jackh.wandroid.model.UserInfo
 import com.jackh.wandroid.network.getWandroidService
-import com.jackh.wandroid.utils.HttpResultFunc
 import com.jackh.wandroid.utils.loadDataTransformer
 import io.reactivex.Observable
 
@@ -21,7 +19,6 @@ class UserRepository private constructor() {
      */
     fun login(userName: String, password: String): Observable<ViewState<UserInfo>> {
         return getWandroidService().login(userName, password)
-            .map(HttpResultFunc())
             .compose(loadDataTransformer())
     }
 
@@ -30,7 +27,6 @@ class UserRepository private constructor() {
      */
     fun register(userName: String, password: String): Observable<ViewState<UserInfo>> {
         return getWandroidService().register(userName, password, password)
-            .map(HttpResultFunc())
             .compose(loadDataTransformer())
     }
 
@@ -39,8 +35,7 @@ class UserRepository private constructor() {
      */
     fun logout(): Observable<ViewState<String>> {
         return getWandroidService().logout()
-            .map(HttpResultFunc(checkResultNull = false))
-            .compose(loadDataTransformer())
+            .compose(loadDataTransformer(checkResultNull = false))
     }
 
     /**
@@ -48,7 +43,6 @@ class UserRepository private constructor() {
      */
     fun getCoinInfo(): Observable<ViewState<CoinInfo>> {
         return getWandroidService().getCoinInfo()
-            .map(HttpResultFunc())
             .compose(loadDataTransformer())
     }
 

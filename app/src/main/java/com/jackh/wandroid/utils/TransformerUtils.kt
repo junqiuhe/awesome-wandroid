@@ -14,11 +14,11 @@ import io.reactivex.schedulers.Schedulers
  * Description:
  */
 
-fun <T> loadDataTransformer(): ObservableTransformer<T, ViewState<T>> {
+fun <T> loadDataTransformer(checkResultNull: Boolean = true): ObservableTransformer<DataResult<T>, ViewState<T>> {
     return ObservableTransformer { upstream ->
-        upstream.map { t ->
-            ViewState.success(t)
-        }.subscribeOn(Schedulers.io())
+        upstream
+            .map(HttpResultFunc(checkResultNull))
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .startWith(ViewState.loading())
             .onErrorReturn { error: Throwable ->
@@ -27,15 +27,20 @@ fun <T> loadDataTransformer(): ObservableTransformer<T, ViewState<T>> {
     }
 }
 
-class HttpResultFunc<T>(private val checkResultNull: Boolean = true) : Function<DataResult<T>, T> {
-    override fun apply(result: DataResult<T>): T? {
+class HttpResultFunc<T>(
+
+    private val checkResultNull: Boolean = true
+
+) : Function<DataResult<T>, ViewState<T>> {
+
+    override fun apply(result: DataResult<T>): ViewState<T> {
         if (result.errorCode != 0) {
             throw ApiException("${result.errorCode}", result.errorMsg)
         }
         if (checkResultNull && result.data == null) {
             throw ApiException("1000", "未知错误")
         }
-        return result.data ?: "" as T
+        return ViewState.success(result.data)
     }
 }
 
