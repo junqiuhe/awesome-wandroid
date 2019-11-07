@@ -51,6 +51,15 @@ interface WanAndroidService {
     ): Observable<DataResult<PageList<ArticleInfo>>>
 
     /**
+     * 每日一问
+     */
+    @GET("article/list/{page}/json")
+    fun qrArticleList(
+        @Path("page") page: Int,
+        @Query("cid") cid: Int = 440
+    ): Observable<DataResult<PageList<ArticleInfo>>>
+
+    /**
      * 获取BannerInfo
      */
     @GET(value = "banner/json")

@@ -12,6 +12,9 @@
             android:layout_height="0dp"
             android:layout_weight="1"/>
 
+        <View
+            style="@style/Divider.Horizontal"/>
+
         <com.jackh.wandroid.widget.BottomNavLayout
             android:id="@+id/nav_layout"
             android:layout_width="match_parent"

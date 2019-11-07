@@ -7,6 +7,8 @@ import com.jackh.wandroid.R
 import com.jackh.wandroid.databinding.FragmentMainBinding
 import com.jackh.wandroid.ui.BaseFragment
 import com.jackh.wandroid.ui.account.MineFragment
+import com.jackh.wandroid.ui.project.ProjectFragment
+import com.jackh.wandroid.ui.wx.WXPublishNumberFragment
 import com.jackh.wandroid.widget.BottomNavItem
 import kotlinx.android.synthetic.main.fragment_main.*
 import java.lang.IllegalArgumentException

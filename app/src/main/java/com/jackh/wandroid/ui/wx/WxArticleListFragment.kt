@@ -1,15 +1,16 @@
-package com.jackh.wandroid.ui.main
+package com.jackh.wandroid.ui.wx
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.jackh.wandroid.R
-import com.jackh.wandroid.adapter.HomeAdapter
+import com.jackh.wandroid.adapter.ArticleInfoAdapter
 import com.jackh.wandroid.databinding.CommonRvLayoutBinding
-import com.jackh.wandroid.model.ArticleInfo
+import com.jackh.wandroid.model.IItem
 import com.jackh.wandroid.ui.BaseFragment
 import com.jackh.wandroid.utils.ListDataUIProxy
+import com.jackh.wandroid.utils.getCommonListDivider
 import com.jackh.wandroid.utils.getViewModel
 import com.jackh.wandroid.viewmodel.main.WxArticleListViewModel
 
@@ -25,9 +26,9 @@ class WxArticleListFragment : BaseFragment<CommonRvLayoutBinding>(){
         getViewModel<WxArticleListViewModel>()
     }
 
-    private lateinit var mAdapter: HomeAdapter
+    private lateinit var mAdapter: ArticleInfoAdapter
 
-    private lateinit var listDataUIProxy: ListDataUIProxy<ArticleInfo>
+    private lateinit var listDataUIProxy: ListDataUIProxy<IItem>
 
     private var wxNumberId: Int = -1
 
@@ -41,15 +42,16 @@ class WxArticleListFragment : BaseFragment<CommonRvLayoutBinding>(){
         listDataUIProxy = ListDataUIProxy(context!!) { isRefresh ->
             viewModel.loadData(isRefresh, wxNumberId)
         }
-        viewDataBinding = listDataUIProxy.onCreateView(inflater, container)
 
+        viewDataBinding = listDataUIProxy.onCreateView(inflater, container)
+        viewDataBinding.recyclerView.addItemDecoration(context!!.getCommonListDivider())
         return viewDataBinding.root
     }
 
     override fun initData(savedInstanceState: Bundle?) {
         wxNumberId = arguments?.getInt(WX_NUMBER_ID, -1) ?: -1
 
-        mAdapter = HomeAdapter()
+        mAdapter = ArticleInfoAdapter()
 
         listDataUIProxy.initData(viewModel, this, mAdapter)
     }

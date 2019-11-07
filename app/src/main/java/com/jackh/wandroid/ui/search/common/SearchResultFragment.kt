@@ -1,6 +1,6 @@
 package com.jackh.wandroid.ui.search.common
 
-import com.jackh.wandroid.model.ArticleInfo
+import com.jackh.wandroid.model.IItem
 import com.jackh.wandroid.ui.search.BaseSearchResultFragment
 import com.jackh.wandroid.utils.getViewModel
 import com.jackh.wandroid.viewmodel.search.SearchViewModel
@@ -11,7 +11,7 @@ import com.jackh.wandroid.viewmodel.search.SearchViewModel
  * Description:
  */
 
-class SearchResultFragment : BaseSearchResultFragment<ArticleInfo, SearchViewModel>() {
+class SearchResultFragment : BaseSearchResultFragment<IItem, SearchViewModel>() {
 
     override fun initViewModel(): SearchViewModel {
         return getViewModel(activity!!)

@@ -3,6 +3,9 @@
 
     <dimen name="design_divider_line_height">1px</dimen>
 
+    <dimen name="design_2dp">2dp</dimen>
+    <dimen name="design_4dp">4dp</dimen>
+    <dimen name="design_8dp">8dp</dimen>
     <dimen name="design_10dp">10dp</dimen>
     <dimen name="design_16dp">16dp</dimen>
     <dimen name="design_32dp">32dp</dimen>

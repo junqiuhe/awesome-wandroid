@@ -88,6 +88,10 @@ class CustomViewModelFactory(
                 clazz.newInstance()
             }
 
+            QRViewModel::class.java.isAssignableFrom(clazz) -> {
+                clazz.newInstance()
+            }
+
             else -> throw IllegalArgumentException("CustomViewModelFactory create method illegal argument")
         }
     }

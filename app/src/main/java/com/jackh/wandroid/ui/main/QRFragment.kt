@@ -12,17 +12,17 @@ import com.jackh.wandroid.ui.BaseFragment
 import com.jackh.wandroid.utils.ListDataUIProxy
 import com.jackh.wandroid.utils.getCommonListDivider
 import com.jackh.wandroid.utils.getViewModel
-import com.jackh.wandroid.viewmodel.main.LatestArticleViewModel
+import com.jackh.wandroid.viewmodel.main.QRViewModel
 
 /**
  * Project Name：awesome-wandroid
- * Created by hejunqiu on 2019/11/1 9:51
- * Description: 最新博文
+ * Created by hejunqiu on 2019/11/7 16:34
+ * Description:
  */
-class LatestArticleFragment : BaseFragment<CommonRvLayoutBinding>() {
+class QRFragment : BaseFragment<CommonRvLayoutBinding>() {
 
-    private val viewModel: LatestArticleViewModel by lazy {
-        getViewModel<LatestArticleViewModel>()
+    private val viewModel: QRViewModel by lazy {
+        getViewModel<QRViewModel>()
     }
 
     private lateinit var mAdapter: ArticleInfoAdapter

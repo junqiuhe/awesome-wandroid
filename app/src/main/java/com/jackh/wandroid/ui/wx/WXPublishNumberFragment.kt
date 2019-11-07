@@ -1,4 +1,4 @@
-package com.jackh.wandroid.ui.main
+package com.jackh.wandroid.ui.wx
 
 import android.os.Bundle
 import android.view.View
@@ -11,7 +11,7 @@ import com.jackh.wandroid.R
 import com.jackh.wandroid.adapter.CommonFragmentAdapter
 import com.jackh.wandroid.databinding.FragmentWxPublishNumBinding
 import com.jackh.wandroid.model.SystemTreeInfo
-import com.jackh.wandroid.ui.search.common.SearchFragment
+import com.jackh.wandroid.ui.main.BaseHomeFragment
 import com.jackh.wandroid.ui.search.wxarticle_history.SearchWxArticleHistoryFragment
 import com.jackh.wandroid.utils.getViewModel
 import com.jackh.wandroid.viewmodel.main.WxPublishNumViewModel
@@ -35,6 +35,11 @@ class WXPublishNumberFragment : BaseHomeFragment<FragmentWxPublishNumBinding>() 
     override fun getLayoutId(): Int = R.layout.fragment_wx_publish_num
 
     override fun initData(savedInstanceState: Bundle?) {
+
+        viewDataBinding.stateView.setOnRetryBtnClickListener {
+            viewModel.loadData()
+        }
+
         viewDataBinding.searchBtn.setOnClickListener {
             val params = Bundle()
             _treeList?.run {
@@ -97,7 +102,9 @@ class WXPublishNumberFragment : BaseHomeFragment<FragmentWxPublishNumBinding>() 
 
             var fragment: Fragment? = findFragmentByPos(index)
             if (fragment == null) {
-                fragment = WxArticleListFragment.newInstance(systemTreeInfo.id)
+                fragment = WxArticleListFragment.newInstance(
+                    systemTreeInfo.id
+                )
             }
             fragmentList.add(fragment)
             titleList.add(systemTreeInfo.name.replace("&amp;", "&"))

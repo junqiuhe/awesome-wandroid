@@ -60,9 +60,7 @@
         </LinearLayout>
 
         <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/colorWindowBg"/>
+            style="@style/Divider.Horizontal"/>
 
         <com.jackh.wandroid.widget.InterceptFragment
             android:id="@+id/search_container"

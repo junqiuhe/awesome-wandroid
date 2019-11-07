@@ -36,7 +36,7 @@ class HomeFragment : BaseHomeFragment<FragmentHomeBinding>() {
     private fun genAdapter(): PagerAdapter {
         val titleList = mutableListOf(
             getString(R.string.home_tab_latest_article_title),
-            getString(R.string.home_tab_latest_project_title)
+            getString(R.string.home_tab_qr_title)
         )
         val fragmentList = mutableListOf<Fragment>()
         for (index in 0 until titleList.size) {
@@ -44,8 +44,8 @@ class HomeFragment : BaseHomeFragment<FragmentHomeBinding>() {
                 0 -> {
                     fragmentList.add(findFragmentByPos(index) ?: LatestArticleFragment())
                 }
-                1 -> {
-                    fragmentList.add(findFragmentByPos(index) ?: LatestProjectFragment())
+                1->{
+                    fragmentList.add(findFragmentByPos(index) ?: QRFragment())
                 }
                 else -> {
                     throw IllegalArgumentException("params position is error.")

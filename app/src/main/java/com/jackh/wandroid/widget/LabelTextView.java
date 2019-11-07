@@ -92,25 +92,6 @@ public class LabelTextView extends AppCompatTextView {
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        /**
-         * 先执行super.onMeasure, 因为需要获取measureWidth, getLayout().getHeight().
-         */
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
-        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
-
-        int width = getMeasuredWidth() + (int) mStrokeWidth * 2;
-
-        int height = getLayout().getHeight() + getPaddingTop() + getPaddingBottom() + (int) mStrokeWidth * 2;
-
-        super.onMeasure(widthMode == MeasureSpec.AT_MOST ?
-                        MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY) :
-                        widthMeasureSpec,
-                MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY));
-    }
-
-    @Override
     protected void onDraw(Canvas canvas) {
         mPaint.setColor(mBackgroundColor);
         mPaint.setStyle(Paint.Style.FILL);
@@ -122,7 +103,6 @@ public class LabelTextView extends AppCompatTextView {
             canvas.drawPath(mPath, mPaint);
 
             canvas.save();
-            canvas.translate(mStrokeWidth, mStrokeWidth);
             super.onDraw(canvas);
             canvas.restore();
 
@@ -143,7 +123,6 @@ public class LabelTextView extends AppCompatTextView {
         mPaint.setXfermode(null);
 
         canvas.save();
-        canvas.translate(mStrokeWidth, mStrokeWidth);
         super.onDraw(canvas);
         canvas.restore();
 

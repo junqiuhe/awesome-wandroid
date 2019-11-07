@@ -51,14 +51,14 @@ data class ArticleInfo(
     val id: Int,
     val apkLink: String,
     val audit: Int,
-    val author: String,
+    val author: String,  //作者
     val chapterId: Int,
-    val chapterName: String,
-    val collect: Boolean,
+    val chapterName: String,  //当前类别
+    val collect: Boolean,  //是否收藏
     val courseId: Int,
     val desc: String,
     val envelopePic: String,
-    val fresh: Boolean,
+    val fresh: Boolean,   //是否是最新
     val link: String,
     val niceDate: String,
     val niceShareDate: String,
@@ -68,16 +68,17 @@ data class ArticleInfo(
     val publishTime: Long,
     val selfVisible: Int,
     val shareDate: Long,
-    val shareUser: String,
+    val shareUser: String,  //分享人
     val superChapterId: Int,
-    val superChapterName: String,
-    val tags: List<TagInfo>?,
-    val title: String,
+    val superChapterName: String,  //父分类
+    val tags: List<TagInfo>?,   //tag: 如公众号、项目、问答
+    val title: String,  //title.
     val type: Int,
     val userId: Int,
     val visible: Int,
-    val zan: Int
-) : Parcelable {
+    val zan: Int,
+    var isTop: Boolean //是否置顶
+) : Parcelable, IItem {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString(),
@@ -107,7 +108,8 @@ data class ArticleInfo(
         parcel.readInt(),
         parcel.readInt(),
         parcel.readInt(),
-        parcel.readInt()
+        parcel.readInt(),
+        parcel.readByte() != 0.toByte()
     ) {
     }
 
@@ -141,6 +143,7 @@ data class ArticleInfo(
         parcel.writeInt(userId)
         parcel.writeInt(visible)
         parcel.writeInt(zan)
+        parcel.writeByte(if (isTop) 1 else 0)
     }
 
     override fun describeContents(): Int {

@@ -3,6 +3,11 @@ package com.jackh.wandroid.utils
 import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.LinearLayout
+import androidx.core.content.res.ResourcesCompat
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
+import com.jackh.wandroid.R
 
 /**
  * Project Name：awesome-wandroid
@@ -24,4 +29,17 @@ fun View.showSoftKeyboard() {
     val inputMethodManager: InputMethodManager = context
         .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     inputMethodManager.showSoftInput(this, 0)
+}
+
+
+fun Context.getCommonListDivider(): RecyclerView.ItemDecoration {
+    val itemDecoration = DividerItemDecoration(this, LinearLayout.VERTICAL)
+    itemDecoration.setDrawable(
+        ResourcesCompat.getDrawable(
+            resources,
+            R.drawable.list_divider_bg,
+            null
+        )!!
+    )
+    return itemDecoration
 }

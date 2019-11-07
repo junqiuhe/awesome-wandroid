@@ -27,6 +27,11 @@ class HomeRepository private constructor() {
             .compose(loadDataTransformer())
     }
 
+    fun getQRArticleList(currentPage: Int): Observable<ViewState<PageList<ArticleInfo>>> {
+        return getWandroidService().qrArticleList(currentPage)
+            .compose(loadDataTransformer())
+    }
+
     @SuppressLint("CheckResult")
     fun zipLatestBannerTopInfo(currentPage: Int = 0): Observable<ViewState<ZipLatestBannerTopInfo>> {
         return Observable.zip(

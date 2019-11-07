@@ -1,4 +1,4 @@
-package com.jackh.wandroid.ui.main
+package com.jackh.wandroid.ui.project
 
 import android.os.Bundle
 import android.view.View
@@ -10,6 +10,7 @@ import com.jackh.wandroid.R
 import com.jackh.wandroid.adapter.CommonFragmentAdapter
 import com.jackh.wandroid.databinding.FragmentProjectBinding
 import com.jackh.wandroid.model.SystemTreeInfo
+import com.jackh.wandroid.ui.main.BaseHomeFragment
 import com.jackh.wandroid.utils.getViewModel
 import com.jackh.wandroid.viewmodel.main.ProjectViewModel
 
@@ -63,9 +64,13 @@ class ProjectFragment : BaseHomeFragment<FragmentProjectBinding>() {
                 View.VISIBLE
             }
 
+            fragmentList.clear()
+            titleList.clear()
+            createLatestProjectFragment()
             treeList?.run {
-                attachFragment(this)
+                createProjectListFragment(this)
             }
+            attachFragment()
         })
 
         viewModel.getError().observe(this, Observer {
@@ -80,20 +85,28 @@ class ProjectFragment : BaseHomeFragment<FragmentProjectBinding>() {
 
     private lateinit var adapter: CommonFragmentAdapter
 
-    private fun attachFragment(treeList: List<SystemTreeInfo>) {
-        val fragmentList = mutableListOf<Fragment>()
-        val titleList = mutableListOf<String>()
-        for (index in treeList.indices) {
-            val systemTreeInfo = treeList[index]
+    private val fragmentList = mutableListOf<Fragment>()
 
-            var fragment: Fragment? = findFragmentByPos(index)
-            if (fragment == null) {
-                fragment = ProjectListFragment.newInstance(systemTreeInfo.id)
-            }
-            fragmentList.add(fragment)
+    private val titleList = mutableListOf<String>()
+
+    private fun createLatestProjectFragment() {
+        fragmentList.add(findFragmentByPos(0) ?: LatestProjectFragment())
+        titleList.add(getString(R.string.home_tab_latest_project_title))
+    }
+
+    private fun createProjectListFragment(treeList: List<SystemTreeInfo>) {
+        for (index in treeList.indices) {
+            val systemTreeInfo: SystemTreeInfo = treeList[index]
+            fragmentList.add(
+                findFragmentByPos(index + 1) ?: ProjectListFragment.newInstance(
+                    systemTreeInfo.id
+                )
+            )
             titleList.add(systemTreeInfo.name.replace("&amp;", "&"))
         }
+    }
 
+    private fun attachFragment() {
         adapter = CommonFragmentAdapter(
             titleList = titleList,
             fragmentList = fragmentList,

@@ -2,6 +2,7 @@ package com.jackh.wandroid.viewmodel.search
 
 import com.jackh.wandroid.base.model.PageInfo
 import com.jackh.wandroid.model.ArticleInfo
+import com.jackh.wandroid.model.IItem
 import com.jackh.wandroid.repository.SearchRepository
 import io.reactivex.disposables.Disposable
 
@@ -15,7 +16,7 @@ class SearchViewModel(
 
     repository: SearchRepository
 
-) : BaseSearchViewModel<List<ArticleInfo>>(repository) {
+) : BaseSearchViewModel<List<IItem>>(repository) {
 
     private val dataList: MutableList<ArticleInfo> = mutableListOf()
 

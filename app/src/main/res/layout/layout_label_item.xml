@@ -19,7 +19,7 @@
                 android:id="@+id/item_src_iv"
                 android:layout_width="@dimen/design_16dp"
                 android:layout_height="@dimen/design_16dp"
-                tools:src="@drawable/collection_icon"/>
+                tools:src="@drawable/collection_image"/>
 
             <TextView
                 android:id="@+id/item_content_tv"

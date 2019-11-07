@@ -1,4 +1,4 @@
-package com.jackh.wandroid.ui.main
+package com.jackh.wandroid.ui.project
 
 import android.os.Bundle
 import android.view.LayoutInflater

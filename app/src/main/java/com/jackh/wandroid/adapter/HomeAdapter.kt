@@ -12,7 +12,7 @@ import com.jackh.wandroid.model.ArticleInfo
  * Description:
  */
 
-class HomeAdapter : BaseQuickAdapter<ArticleInfo, BaseViewHolder>(R.layout.item_article_info) {
+class HomeAdapter : BaseQuickAdapter<ArticleInfo, BaseViewHolder>(R.layout.item_home) {
 
     override fun convert(helper: BaseViewHolder, item: ArticleInfo?) {
         item?.run {

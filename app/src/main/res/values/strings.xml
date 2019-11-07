@@ -32,6 +32,10 @@
     <string name="network_error_retry_text">重新加载</string>
 
     <string name="home_tab_latest_article_title">最新博文</string>
+    <string name="home_tab_qr_title">每日一问</string>
     <string name="home_tab_latest_project_title">最新项目</string>
+
+    <string name="top_text">置顶</string>
+    <string name="new_text">新</string>
 
 </resources>

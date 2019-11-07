@@ -2,7 +2,7 @@ package com.jackh.wandroid.viewmodel.main
 
 import android.annotation.SuppressLint
 import com.jackh.wandroid.base.model.*
-import com.jackh.wandroid.model.ArticleInfo
+import com.jackh.wandroid.model.IItem
 import com.jackh.wandroid.repository.HomeRepository
 import com.jackh.wandroid.viewmodel.BaseViewModel
 
@@ -13,9 +13,9 @@ import com.jackh.wandroid.viewmodel.BaseViewModel
  */
 class LatestArticleViewModel(
     private val homeRepository: HomeRepository
-) : BaseViewModel<List<ArticleInfo>>() {
+) : BaseViewModel<List<IItem>>() {
 
-    private val mDataList: MutableList<ArticleInfo> = mutableListOf()
+    private val mDataList: MutableList<IItem> = mutableListOf()
 
     private var mPageInfo: PageInfo = PageInfo(currentPage = 0)
 
@@ -31,8 +31,15 @@ class LatestArticleViewModel(
                     mPageInfo.totalPage = articleList.pageCount
 
                     mDataList.clear()
+
+//                    bannerList?.run {
+//                        mDataList.add(BannerItem(this))
+//                    }
                     topArticleList?.run {
-                        mDataList.addAll(this)
+                        for (topArticle in this) {
+                            topArticle.isTop = true
+                            mDataList.add(topArticle)
+                        }
                     }
                     articleList.datas?.let { it ->
                         mDataList.addAll(it)

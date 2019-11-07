@@ -2,6 +2,7 @@ package com.jackh.wandroid.viewmodel.search
 
 import com.jackh.wandroid.base.model.PageInfo
 import com.jackh.wandroid.model.ArticleInfo
+import com.jackh.wandroid.model.IItem
 import com.jackh.wandroid.repository.SearchRepository
 import com.jackh.wandroid.repository.WxPublishNumRepository
 import io.reactivex.disposables.Disposable
@@ -18,7 +19,7 @@ class SearchWxArticleHistoryViewModel(
 
     private val wxPublishNumRepository: WxPublishNumRepository
 
-) : BaseSearchViewModel<List<ArticleInfo>>(searchRepository){
+) : BaseSearchViewModel<List<IItem>>(searchRepository){
 
     private val dataList: MutableList<ArticleInfo> = mutableListOf()
 
