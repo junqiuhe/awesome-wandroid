@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/design_10dp"
+    android:paddingBottom="@dimen/design_10dp"
+    android:background="@android:color/white">
+
+    <ImageView
+        android:id="@+id/avatar_iv"
+        android:layout_width="@dimen/design_36dp"
+        android:layout_height="@dimen/design_36dp"
+        android:src="@drawable/default_avatar"
+        android:layout_marginLeft="@dimen/design_16dp"
+        android:layout_marginStart="@dimen/design_16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <ImageView
+        android:id="@+id/collection_iv"
+        android:layout_width="@dimen/design_32dp"
+        android:layout_height="@dimen/design_32dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/collection_image"
+        android:layout_marginRight="@dimen/design_16dp"
+        android:layout_marginEnd="@dimen/design_16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/avatar_iv"
+        app:layout_constraintBottom_toBottomOf="@+id/avatar_iv"/>
+
+    <View
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="1px"
+        android:layout_marginLeft="@dimen/design_16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/avatar_iv"
+        app:layout_constraintLeft_toRightOf="@+id/avatar_iv"
+        app:layout_constraintTop_toTopOf="@+id/avatar_iv" />
+
+    <TextView
+        android:id="@+id/author_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/design_text_14sp"
+        android:textColor="@color/color_333"
+        android:layout_marginStart="@dimen/design_16dp"
+        android:layout_marginLeft="@dimen/design_16dp"
+        android:layout_marginRight="@dimen/design_16dp"
+        app:layout_constraintLeft_toRightOf="@+id/avatar_iv"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintRight_toLeftOf="@+id/collection_iv"
+        tools:text="张三"/>
+
+    <TextView
+        android:id="@+id/time_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/design_text_12sp"
+        android:textColor="@color/color_999"
+        android:layout_marginStart="@dimen/design_16dp"
+        android:layout_marginLeft="@dimen/design_16dp"
+        app:layout_constraintLeft_toRightOf="@+id/avatar_iv"
+        app:layout_constraintTop_toBottomOf="@+id/guideline"
+        android:layout_marginTop="@dimen/design_2dp"
+        tools:text="刚刚"/>
+
+    <com.jackh.wandroid.widget.RatioImageView
+        android:id="@+id/project_icon_iv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_999"
+        android:scaleType="centerCrop"
+        android:visibility="visible"
+        app:baseWidth="true"
+        app:ratio="1.333"
+        app:layout_constraintTop_toBottomOf="@+id/avatar_iv"
+        android:layout_marginTop="@dimen/design_10dp"/>
+
+    <TextView
+        android:id="@+id/title_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/design_10dp"
+        android:textColor="@color/color_333"
+        android:textSize="@dimen/design_text_14sp"
+        android:lineSpacingExtra="@dimen/design_2dp"
+        android:paddingLeft="@dimen/design_16dp"
+        android:paddingRight="@dimen/design_16dp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        app:layout_constraintTop_toBottomOf="@+id/project_icon_iv"
+        tools:text="dddddd"/>
+
+    <TextView
+        android:id="@+id/des_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/design_10dp"
+        android:textColor="@color/color_999"
+        android:textSize="@dimen/design_text_12sp"
+        android:lineSpacingExtra="@dimen/design_2dp"
+        android:paddingLeft="@dimen/design_16dp"
+        android:paddingRight="@dimen/design_16dp"
+        android:maxLines="6"
+        android:ellipsize="end"
+        app:layout_constraintTop_toBottomOf="@+id/title_tv"
+        tools:text="ddddddddddddddddddddddddddddddddddddddddddddd"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,6 +9,7 @@
     <dimen name="design_10dp">10dp</dimen>
     <dimen name="design_16dp">16dp</dimen>
     <dimen name="design_32dp">32dp</dimen>
+    <dimen name="design_36dp">36dp</dimen>
     <dimen name="design_48dp">48dp</dimen>
     <dimen name="design_56dp">56dp</dimen>
 

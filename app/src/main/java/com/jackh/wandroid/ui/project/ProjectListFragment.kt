@@ -5,11 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.jackh.wandroid.R
-import com.jackh.wandroid.adapter.HomeAdapter
+import com.jackh.wandroid.adapter.ProjectAdapter
 import com.jackh.wandroid.databinding.CommonRvLayoutBinding
 import com.jackh.wandroid.model.ArticleInfo
 import com.jackh.wandroid.ui.BaseFragment
 import com.jackh.wandroid.utils.ListDataUIProxy
+import com.jackh.wandroid.utils.getCommonListDivider
 import com.jackh.wandroid.utils.getViewModel
 import com.jackh.wandroid.viewmodel.main.ProjectListViewModel
 
@@ -25,7 +26,7 @@ class ProjectListFragment : BaseFragment<CommonRvLayoutBinding>() {
         getViewModel<ProjectListViewModel>()
     }
 
-    private lateinit var mAdapter: HomeAdapter
+    private lateinit var mAdapter: ProjectAdapter
 
     private lateinit var listDataUIProxy: ListDataUIProxy<ArticleInfo>
 
@@ -41,15 +42,16 @@ class ProjectListFragment : BaseFragment<CommonRvLayoutBinding>() {
         listDataUIProxy = ListDataUIProxy(context!!) { isRefresh ->
             viewModel.loadData(isRefresh, projectId!!)
         }
-        viewDataBinding = listDataUIProxy.onCreateView(inflater, container)
 
+        viewDataBinding = listDataUIProxy.onCreateView(inflater, container)
+        viewDataBinding.recyclerView.addItemDecoration(context!!.getCommonListDivider())
         return viewDataBinding.root
     }
 
     override fun initData(savedInstanceState: Bundle?) {
         projectId = arguments?.getInt(PROJECT_ID, -1) ?: -1
 
-        mAdapter = HomeAdapter()
+        mAdapter = ProjectAdapter()
 
         listDataUIProxy.initData(viewModel, this, mAdapter)
     }

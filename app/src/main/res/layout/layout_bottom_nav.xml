@@ -11,7 +11,7 @@
     android:paddingTop="5dp"
     android:paddingBottom="5dp">
 
-    <com.jackh.wandroid.widget.SquareImageView
+    <com.jackh.wandroid.widget.RatioImageView
         android:id="@+id/nav_img_view"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
