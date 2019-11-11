@@ -6,7 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.jackh.wandroid.R
 import com.jackh.wandroid.databinding.FragmentSettingBinding
-import com.jackh.wandroid.repository.AccountManager
+import com.jackh.wandroid.repository.sessionIsOpen
 import com.jackh.wandroid.ui.BaseFragment
 import com.jackh.wandroid.utils.getViewModel
 import com.jackh.wandroid.viewmodel.SettingViewModel
@@ -28,7 +28,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
 
         viewDataBinding.logoutBtn.visibility =
-            if (AccountManager.getInstance().sessionIsOpen()) View.VISIBLE else View.GONE
+            if (sessionIsOpen()) View.VISIBLE else View.GONE
 
         viewModel.logout.observe(this, Observer {
             findNavController().navigateUp()

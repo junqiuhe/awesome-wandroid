@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.jackh.wandroid.repository.*
+import com.jackh.wandroid.viewmodel.account.HistoryViewModel
 import com.jackh.wandroid.viewmodel.account.LoginViewModel
 import com.jackh.wandroid.viewmodel.account.MineViewModel
 import com.jackh.wandroid.viewmodel.account.RegisterViewModel
@@ -89,6 +90,10 @@ class CustomViewModelFactory(
             }
 
             QRViewModel::class.java.isAssignableFrom(clazz) -> {
+                clazz.newInstance()
+            }
+
+            HistoryViewModel::class.java.isAssignableFrom(clazz) ->{
                 clazz.newInstance()
             }
 

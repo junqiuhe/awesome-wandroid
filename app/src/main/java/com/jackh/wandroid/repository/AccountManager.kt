@@ -130,6 +130,12 @@ class AccountManager private constructor() {
     }
 }
 
+fun sessionIsOpen(action: ((sessionIsOpen: Boolean) -> Unit)? = null): Boolean {
+    val sessionIsOpen: Boolean = AccountManager.getInstance().sessionIsOpen()
+    action?.invoke(sessionIsOpen)
+    return sessionIsOpen
+}
+
 data class UserAction(
 
     val userInfo: UserInfo? = null,

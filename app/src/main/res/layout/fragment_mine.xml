@@ -188,7 +188,7 @@
             app:label_text="@string/collection_text" />
 
         <com.jackh.wandroid.widget.LabelItemView
-            android:id="@+id/read_item"
+            android:id="@+id/read_history_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"

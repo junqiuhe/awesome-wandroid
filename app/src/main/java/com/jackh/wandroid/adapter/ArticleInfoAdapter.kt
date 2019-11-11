@@ -14,7 +14,11 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.jackh.wandroid.R
 import com.jackh.wandroid.model.ArticleInfo
 import com.jackh.wandroid.model.BannerItem
+import com.jackh.wandroid.model.HistoryInfo
 import com.jackh.wandroid.model.IItem
+import com.jackh.wandroid.repository.AccountManager
+import com.jackh.wandroid.repository.HistoryRepository
+import com.jackh.wandroid.repository.sessionIsOpen
 
 /**
  * Project Name：awesome-wandroid
@@ -107,6 +111,19 @@ private class ArticleItemHolder(
         getView<View>(R.id.collection_icon).isSelected = articleInfo.collect
 
         getView<TextView>(R.id.time_tv).text = articleInfo.niceDate
+
+        itemView.setOnClickListener {
+            sessionIsOpen {
+                if (it) {
+                    val historyInfo = HistoryInfo(
+                        articleInfo.id,
+                        AccountManager.getInstance().getUserInfo()?.id!!,
+                        articleInfo
+                    )
+                    HistoryRepository.getInstance().insertHistory(historyInfo)
+                }
+            }
+        }
     }
 }
 

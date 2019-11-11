@@ -2,6 +2,8 @@ package com.jackh.wandroid.model
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.*
+import com.jackh.wandroid.database.TagConverters
 
 /**
  * Project Name：awesome-wandroid
@@ -10,45 +12,49 @@ import android.os.Parcelable
  */
 
 /**
-    {
-        "apkLink": "",
-        "audit": 1,
-        "author": "互联网侦察",
-        "chapterId": 421,
-        "chapterName": "互联网侦察",
-        "collect": false,
-        "courseId": 13,
-        "desc": "",
-        "envelopePic": "",
-        "fresh": false,
-        "id": 9940,
-        "link": "https://mp.weixin.qq.com/s/G5Syqq1Ofxp4VFwEJOHSbg",
-        "niceDate": "2019-10-24",
-        "niceShareDate": "2019-10-25",
-        "origin": "",
-        "prefix": "",
-        "projectLink": "",
-        "publishTime": 1571846400000,
-        "selfVisible": 0,
-        "shareDate": 1572008753000,
-        "shareUser": "",
-        "superChapterId": 408,
-        "superChapterName": "公众号",
-        "tags": [
-        {
-            "name": "公众号",
-            "url": "/wxarticle/list/421/1"
-        }
-        ],
-        "title": "阿里巴巴的技术专家，是如何画好架构图的？",
-        "type": 0,
-        "userId": -1,
-        "visible": 1,
-        "zan": 0
-    }
-**/
+{
+"apkLink": "",
+"audit": 1,
+"author": "互联网侦察",
+"chapterId": 421,
+"chapterName": "互联网侦察",
+"collect": false,
+"courseId": 13,
+"desc": "",
+"envelopePic": "",
+"fresh": false,
+"id": 9940,
+"link": "https://mp.weixin.qq.com/s/G5Syqq1Ofxp4VFwEJOHSbg",
+"niceDate": "2019-10-24",
+"niceShareDate": "2019-10-25",
+"origin": "",
+"prefix": "",
+"projectLink": "",
+"publishTime": 1571846400000,
+"selfVisible": 0,
+"shareDate": 1572008753000,
+"shareUser": "",
+"superChapterId": 408,
+"superChapterName": "公众号",
+"tags": [
+{
+"name": "公众号",
+"url": "/wxarticle/list/421/1"
+}
+],
+"title": "阿里巴巴的技术专家，是如何画好架构图的？",
+"type": 0,
+"userId": -1,
+"visible": 1,
+"zan": 0
+}
+ **/
+@TypeConverters(TagConverters::class)
 data class ArticleInfo(
+
+    @ColumnInfo(name = "article_id")
     val id: Int,
+
     val apkLink: String,
     val audit: Int,
     val author: String,  //作者
@@ -71,14 +77,19 @@ data class ArticleInfo(
     val shareUser: String,  //分享人
     val superChapterId: Int,
     val superChapterName: String,  //父分类
+
+    @ColumnInfo(name = "tags")
     val tags: List<TagInfo>?,   //tag: 如公众号、项目、问答
+
     val title: String,  //title.
     val type: Int,
     val userId: Int,
     val visible: Int,
     val zan: Int,
-    var isTop: Boolean //是否置顶
-) : Parcelable, IItem {
+
+    var isTop: Boolean = false//是否置顶
+
+) : IItem, Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString(),
@@ -168,7 +179,7 @@ data class TagInfo(
 
     val url: String
 
-): Parcelable {
+) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString()

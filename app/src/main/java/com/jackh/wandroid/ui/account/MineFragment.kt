@@ -11,6 +11,7 @@ import com.jackh.wandroid.model.CoinInfo
 import com.jackh.wandroid.model.UserInfo
 import com.jackh.wandroid.repository.AccountManager
 import com.jackh.wandroid.repository.SessionStatus
+import com.jackh.wandroid.repository.sessionIsOpen
 import com.jackh.wandroid.ui.main.BaseHomeFragment
 import com.jackh.wandroid.utils.getViewModel
 import com.jackh.wandroid.viewmodel.account.MineViewModel
@@ -72,12 +73,23 @@ class MineFragment : BaseHomeFragment<FragmentMineBinding>() {
             })
 
         visibleMineHeader(
-            accountManager.sessionIsOpen(),
+            sessionIsOpen(),
             accountManager.getUserInfo()
         )
 
         viewDataBinding.settingItem.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_settingFragment)
+        }
+
+        viewDataBinding.readHistoryItem.setOnClickListener {
+            sessionIsOpen { sessionIsOpen ->
+                if (sessionIsOpen) {
+                    Navigation.findNavController(it)
+                        .navigate(R.id.action_mainFragment_to_historyFragment)
+                } else {
+                    Navigation.findNavController(it).navigate(R.id.accountEntranceActivity)
+                }
+            }
         }
     }
 

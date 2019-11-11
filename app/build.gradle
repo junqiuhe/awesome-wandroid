@@ -83,6 +83,15 @@ dependencies {
     kapt 'com.github.bumptech.glide:compiler:4.10.0'
 //    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 
+    /**
+     * Room support
+     */
+    def room_version = "2.2.1"
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
+    implementation "androidx.room:room-rxjava2:$room_version"
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
