@@ -59,4 +59,14 @@
 
     <include app:graph="@navigation/nav_account_graph" />
 
+    <fragment
+        android:id="@+id/webViewFragment"
+        android:name="com.jackh.wandroid.ui.webview.WebViewFragment"
+        tools:layout="@layout/fragment_web_view" />
+
+    <fragment
+        android:id="@+id/detailArticleFragment"
+        android:name="com.jackh.wandroid.ui.ArticleDetailFragment"
+        tools:layout="@layout/fragment_article_detail" />
+
 </navigation>

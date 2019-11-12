@@ -41,4 +41,6 @@
     <string name="top_text">置顶</string>
     <string name="new_text">新</string>
 
+    <string name="menu_collection_text">点赞</string>
+
 </resources>

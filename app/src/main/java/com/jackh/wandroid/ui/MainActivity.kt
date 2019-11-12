@@ -11,10 +11,11 @@ import com.jackh.wandroid.databinding.ActivityMainBinding
 import com.jackh.wandroid.ui.main.MainFragment
 import com.jackh.wandroid.ui.search.common.SearchFragment
 import com.jackh.wandroid.ui.search.wxarticle_history.SearchWxArticleHistoryFragment
+import com.jackh.wandroid.ui.webview.OnWebViewListener
 import com.jackh.wandroid.utils.setupWithNavController
 import com.jackh.wandroid.widget.CustomNavToolbar
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnWebViewListener {
 
     private lateinit var customNavToolbar: CustomNavToolbar
 
@@ -49,5 +50,11 @@ class MainActivity : AppCompatActivity() {
                 SearchWxArticleHistoryFragment::class.java.canonicalName!!
             )
         )
+    }
+
+    override fun updateTitle(title: String?) {
+        title?.run {
+            customNavToolbar.setTitle(this)
+        }
     }
 }

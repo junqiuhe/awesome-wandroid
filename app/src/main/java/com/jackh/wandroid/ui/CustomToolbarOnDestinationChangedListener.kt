@@ -54,7 +54,8 @@ class CustomToolbarOnDestinationChangedListener(
             }
             matcher.appendTail(title)
             toolbar.setTitle(title)
-        }
+
+        } ?: toolbar.setTitle("")
 
         if (destination is FragmentNavigator.Destination) {
             toolbar.visibility = if (contains(destination.className)) View.GONE else View.VISIBLE

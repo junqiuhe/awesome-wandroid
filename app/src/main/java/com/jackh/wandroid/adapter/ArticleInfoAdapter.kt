@@ -2,6 +2,7 @@ package com.jackh.wandroid.adapter
 
 import android.graphics.Color
 import android.os.Build
+import android.os.Bundle
 import android.text.Html
 import android.text.Spannable
 import android.text.SpannableStringBuilder
@@ -9,6 +10,7 @@ import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.Navigation
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.jackh.wandroid.R
@@ -19,6 +21,7 @@ import com.jackh.wandroid.model.IItem
 import com.jackh.wandroid.repository.AccountManager
 import com.jackh.wandroid.repository.HistoryRepository
 import com.jackh.wandroid.repository.sessionIsOpen
+import com.jackh.wandroid.ui.ArticleDetailFragment.Companion.PARAMS_ARTICLE_INFO
 
 /**
  * Project Name：awesome-wandroid
@@ -112,7 +115,7 @@ private class ArticleItemHolder(
 
         getView<TextView>(R.id.time_tv).text = articleInfo.niceDate
 
-        itemView.setOnClickListener {
+        itemView.setOnClickListener { view: View ->
             sessionIsOpen {
                 if (it) {
                     val historyInfo = HistoryInfo(
@@ -123,6 +126,10 @@ private class ArticleItemHolder(
                     HistoryRepository.getInstance().insertHistory(historyInfo)
                 }
             }
+
+            val params = Bundle()
+            params.putParcelable(PARAMS_ARTICLE_INFO, articleInfo)
+            Navigation.findNavController(view).navigate(R.id.detailArticleFragment, params)
         }
     }
 }

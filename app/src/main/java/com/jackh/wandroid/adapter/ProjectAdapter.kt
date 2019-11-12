@@ -1,14 +1,21 @@
 package com.jackh.wandroid.adapter
 
 import android.content.Context
+import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.jackh.wandroid.R
 import com.jackh.wandroid.model.ArticleInfo
+import com.jackh.wandroid.model.HistoryInfo
+import com.jackh.wandroid.repository.AccountManager
+import com.jackh.wandroid.repository.HistoryRepository
+import com.jackh.wandroid.repository.sessionIsOpen
+import com.jackh.wandroid.ui.ArticleDetailFragment
 
 /**
  * Project Name：awesome-wandroid
@@ -41,6 +48,23 @@ class ProjectAdapter : BaseQuickAdapter<ArticleInfo, BaseViewHolder>(R.layout.it
                 .load(getResource(helper.itemView.context, mData.indexOf(this) % 13))
                 .apply(options)
                 .into(helper.getView(R.id.project_icon_iv))
+
+            helper.itemView.setOnClickListener { view: View ->
+                sessionIsOpen {
+                    if (it) {
+                        val historyInfo = HistoryInfo(
+                            id,
+                            AccountManager.getInstance().getUserInfo()?.id!!,
+                            this
+                        )
+                        HistoryRepository.getInstance().insertHistory(historyInfo)
+                    }
+                }
+
+                val params = Bundle()
+                params.putParcelable(ArticleDetailFragment.PARAMS_ARTICLE_INFO, this)
+                Navigation.findNavController(view).navigate(R.id.detailArticleFragment, params)
+            }
         }
     }
 

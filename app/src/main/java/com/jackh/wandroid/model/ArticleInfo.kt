@@ -60,7 +60,7 @@ data class ArticleInfo(
     val author: String,  //作者
     val chapterId: Int,
     val chapterName: String,  //当前类别
-    val collect: Boolean,  //是否收藏
+    var collect: Boolean,  //是否收藏
     val courseId: Int,
     val desc: String,
     val envelopePic: String,
