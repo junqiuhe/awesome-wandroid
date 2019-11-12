@@ -5,9 +5,14 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
 import androidx.core.content.res.ResourcesCompat
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.jackh.wandroid.R
+import com.jackh.wandroid.ui.CustomAppBarConfiguration
+import com.jackh.wandroid.ui.CustomToolbarOnDestinationChangedListener
+import com.jackh.wandroid.widget.CustomNavToolbar
+import java.lang.ref.WeakReference
 
 /**
  * Project Name：awesome-wandroid
@@ -42,4 +47,17 @@ fun Context.getCommonListDivider(): RecyclerView.ItemDecoration {
         )!!
     )
     return itemDecoration
+}
+
+fun setupWithNavController(
+    customNavToolbar: CustomNavToolbar,
+    navController: NavController,
+    configuration: CustomAppBarConfiguration
+) {
+    navController.addOnDestinationChangedListener(
+        CustomToolbarOnDestinationChangedListener(WeakReference(customNavToolbar), configuration)
+    )
+    customNavToolbar.setOnBackBtnClickListener {
+        navController.navigateUp()
+    }
 }

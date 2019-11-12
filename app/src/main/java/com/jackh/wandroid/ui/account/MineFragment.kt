@@ -41,7 +41,7 @@ class MineFragment : BaseHomeFragment<FragmentMineBinding>() {
         super.initData(savedInstanceState)
 
         viewDataBinding.loginRegisterBtn.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.accountEntranceActivity)
+            Navigation.findNavController(it).navigate(R.id.action_mainFragment_to_login)
         }
 
         accountManager.getUserAction().observe(this, Observer { userAction ->
@@ -65,10 +65,10 @@ class MineFragment : BaseHomeFragment<FragmentMineBinding>() {
                 }
 
                 coinInfo.run {
-                    viewDataBinding.coinTv.text = getString(R.string.user_coin, "$coinCount")
+                    viewDataBinding.coinTv.text = getString(R.string.user_coin, coinCount)
                     viewDataBinding.levelTv.text =
-                        getString(R.string.user_level, "${1 + coinCount / 100}")
-                    viewDataBinding.rankTv.text = getString(R.string.user_rank, "$rank")
+                        getString(R.string.user_level, 1 + coinCount / 100)
+                    viewDataBinding.rankTv.text = getString(R.string.user_rank, rank)
                 }
             })
 
@@ -87,7 +87,7 @@ class MineFragment : BaseHomeFragment<FragmentMineBinding>() {
                     Navigation.findNavController(it)
                         .navigate(R.id.action_mainFragment_to_historyFragment)
                 } else {
-                    Navigation.findNavController(it).navigate(R.id.accountEntranceActivity)
+                    Navigation.findNavController(it).navigate(R.id.action_mainFragment_to_login)
                 }
             }
         }

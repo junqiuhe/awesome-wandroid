@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_account_graph"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_or_register_graph"
     app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.jackh.wandroid.ui.account.LoginFragment"
-        android:label="LoginFragment" >
+        android:label="@string/login_title"
+        tools:layout="@layout/fragment_login">
 
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
@@ -18,6 +20,7 @@
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.jackh.wandroid.ui.account.RegisterFragment"
-        android:label="RegisterFragment" />
+        android:label="@string/register_title"
+        tools:layout="@layout/fragment_register"/>
 
 </navigation>

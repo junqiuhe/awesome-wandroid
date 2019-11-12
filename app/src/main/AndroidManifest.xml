@@ -21,13 +21,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.main.MainActivity"
+        <activity android:name=".ui.MainActivity"
             android:theme="@style/NoActionBar"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".ui.account.AccountEntranceActivity"
-            android:theme="@style/NoActionBar"
             android:screenOrientation="portrait"/>
 
     </application>

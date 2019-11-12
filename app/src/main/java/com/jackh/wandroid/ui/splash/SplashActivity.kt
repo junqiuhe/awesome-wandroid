@@ -2,10 +2,11 @@ package com.jackh.wandroid.ui.splash
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.jackh.wandroid.R
 import com.jackh.wandroid.databinding.ActivitySplashBinding
-import com.jackh.wandroid.ui.BaseActivity
-import com.jackh.wandroid.ui.main.MainActivity
+import com.jackh.wandroid.ui.MainActivity
 
 /**
  * Project Name：awesome-wandroid
@@ -13,17 +14,17 @@ import com.jackh.wandroid.ui.main.MainActivity
  * Description:
  */
 
-class SplashActivity : BaseActivity<ActivitySplashBinding>() {
+class SplashActivity : AppCompatActivity() {
 
-    override fun getLayoutId(): Int = R.layout.activity_splash
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-    override fun initData(savedInstanceState: Bundle?) {
-        super.initData(savedInstanceState)
+        DataBindingUtil.setContentView<ActivitySplashBinding>(this, R.layout.activity_splash)
 
         launchMainActivity()
     }
 
-    private fun launchMainActivity(){
+    private fun launchMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
