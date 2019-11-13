@@ -42,5 +42,6 @@
     <string name="new_text">新</string>
 
     <string name="menu_collection_text">点赞</string>
+    <string name="can_not_open_app">无法打开</string>
 
 </resources>
