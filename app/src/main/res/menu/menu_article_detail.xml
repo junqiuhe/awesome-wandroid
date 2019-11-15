@@ -4,7 +4,7 @@
 
     <item android:id="@+id/collection_item"
         android:title="@string/menu_collection_text"
-        android:icon="@drawable/collection_default"
+        android:icon="@drawable/like_default"
         app:showAsAction="always"/>
 
 </menu>

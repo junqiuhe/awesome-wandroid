@@ -179,13 +179,13 @@
         </LinearLayout>
 
         <com.jackh.wandroid.widget.LabelItemView
-            android:id="@+id/collection_item"
+            android:id="@+id/like_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:layout_marginTop="@dimen/design_10dp"
-            app:label_src="@drawable/collection_icon"
-            app:label_text="@string/collection_text" />
+            app:label_src="@drawable/like_icon"
+            app:label_text="@string/like_text" />
 
         <com.jackh.wandroid.widget.LabelItemView
             android:id="@+id/read_history_item"

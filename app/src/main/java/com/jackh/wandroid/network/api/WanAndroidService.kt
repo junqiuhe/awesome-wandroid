@@ -129,4 +129,31 @@ interface WanAndroidService {
     @GET(value = "lg/coin/userinfo/json")
     fun getCoinInfo(): Observable<DataResult<CoinInfo>>
 
+    /**
+     * 获取我收藏文章列表
+     */
+    @GET(value = "lg/collect/list/{pageSize}/json")
+    fun getMyCollectionList(
+        @Path(value = "pageSize") pageSize: Int
+    ): Observable<DataResult<PageList<ArticleInfo>>>
+
+    /**
+     * 收藏文章, articleId: 文章Id.
+     */
+    @FormUrlEncoded
+    @POST(value = "lg/collect/{articleId}/json")
+    fun collect(
+        @Path(value = "articleId") articleId: Int
+    ): Observable<DataResult<String>>
+
+    /**
+     * 取消收藏文章，此处有两种情况，
+     *  1、在我的收藏列表中，取值为: originId
+     *  2、文章列表中，取值为id.
+     */
+    @FormUrlEncoded
+    @POST(value = "lg/uncollect_originId/{articleId}/json")
+    fun unCollect(
+        @Path(value = "articleId") articleId: Int
+    ): Observable<DataResult<String>>
 }

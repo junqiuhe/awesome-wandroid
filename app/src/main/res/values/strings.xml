@@ -13,7 +13,7 @@
     <string name="welcome_text">欢迎来到玩Android</string>
     <string name="wandroid_des">玩Android是一个每日推荐20~30篇Android优质文章的站点,提供Android常用工具和常用网站,并以知识体系的形式展现所有的文章分类。</string>
     <string name="login_or_register_text">登录/注册</string>
-    <string name="collection_text">收藏列表</string>
+    <string name="like_text">点赞列表</string>
     <string name="read_text">阅读列表</string>
     <string name="rank_text">排行榜</string>
     <string name="integral_text">积分规则</string>

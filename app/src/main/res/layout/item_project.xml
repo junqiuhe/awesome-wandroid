@@ -24,7 +24,7 @@
         android:layout_width="@dimen/design_32dp"
         android:layout_height="@dimen/design_32dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/collection_image"
+        android:src="@drawable/like_image"
         android:layout_marginRight="@dimen/design_16dp"
         android:layout_marginEnd="@dimen/design_16dp"
         app:layout_constraintRight_toRightOf="parent"

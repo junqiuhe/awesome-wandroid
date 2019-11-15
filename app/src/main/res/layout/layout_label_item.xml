@@ -19,7 +19,7 @@
                 android:id="@+id/item_src_iv"
                 android:layout_width="@dimen/design_16dp"
                 android:layout_height="@dimen/design_16dp"
-                tools:src="@drawable/collection_image"/>
+                tools:src="@drawable/like_image"/>
 
             <TextView
                 android:id="@+id/item_content_tv"
@@ -45,7 +45,7 @@
 
         <View
             android:id="@+id/divider_view"
-            style="@style/Divider.Horizontal"
+            style="@style/Divider.Horizontal_1px"
             android:layout_marginLeft="@dimen/design_48dp"
             android:layout_marginStart="@dimen/design_48dp"/>
 

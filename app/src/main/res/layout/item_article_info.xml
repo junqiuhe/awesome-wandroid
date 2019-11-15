@@ -116,7 +116,7 @@
             android:id="@+id/collection_icon"
             android:layout_width="@dimen/design_32dp"
             android:layout_height="@dimen/design_32dp"
-            android:src="@drawable/collection_image" />
+            android:src="@drawable/like_image" />
 
         <TextView
             android:id="@+id/time_tv"

@@ -43,7 +43,7 @@ class ArticleDetailFragment : BaseFragment<FragmentArticleDetailBinding>() {
 
     override fun onPrepareOptionsMenu(menu: Menu) {
         mArticleInfo?.run {
-            val iconResId = if(collect) R.drawable.collection_selected else R.drawable.collection_default
+            val iconResId = if(collect) R.drawable.like_selected else R.drawable.like_default
             menu.findItem(R.id.collection_item).setIcon(iconResId)
         }
     }
